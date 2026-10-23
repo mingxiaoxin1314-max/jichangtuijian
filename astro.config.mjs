@@ -5,9 +5,10 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
   site: 'https://mingxiaoxin1314-max.github.io',
   base: '/jichangtuijian',
-  output: 'static',
+  trailingSlash: 'always',
   server: {
     host: true,
     port: 4321,
@@ -16,5 +17,10 @@ export default defineConfig({
     host: true,
     port: 4321,
   },
-  integrations: [tailwind(), sitemap()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
 });
