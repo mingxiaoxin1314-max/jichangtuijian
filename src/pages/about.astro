@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 个人技术栈标签
+const skills = [
+  "BGP / Anycast 拓扑", "IPLC / IEPL 物理专线", "Mihomo / Clash 内核", 
+  "Sing-box", "Hysteria2 / VLESS", "Linux 流量整形 (TC/QoS)",
+  "TCP BBRv3 拥塞控制", "Python 自动化压测"
+];
+
+// 测试准则
+const principles = [
+  {
+    title: "晚高峰真实压测 (20:00 - 23:00)",
+    desc: "绝不使用闲时空载数据充当基准，所有节点均在骨干网最拥堵的晚高峰时段进行 32 线程持续并发测速与 Jitter 抖动采样。"
+  },
+  {
+    title: "杜绝商业虚标与水军刷榜",
+    desc: "坚持以实际连通率、掉线重连耗时（RTT）及流媒体双 ISP 原生 IP 纯净度作为综合评分唯一标准，不符合稳定标准的品牌一律降级。"
+  },
+  {
+    title: "倡导月付自保原则",
+    desc: "在所有评测与指南中反复提醒新手拒绝超长年付诱导，推崇主备容灾（主力专线 + 备用按量）的最佳工程冗余架构。"
+  }
+];
+---
+
+<Layout description="了解本站创作者背景、网络性能压测方法论与建站初衷。专注跨境网络协议研究、IPLC/IEPL 专线质量监测与开源网络工具实践。" ogType="article" title="关于作者与评测实验室 | 跨境网络性能基准与开源技术记录">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <!-- 面包屑导航 -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-8">
+      <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-slate-200">关于作者 (About-My-Self)</span>
+    </nav>
+
+    <!-- 个人介绍 Header 卡片 -->
+    <header class="p-8 md:p-10 rounded-3xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden mb-12">
+      <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+        <!-- 开发者头像 -->
+        <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 p-0.5 shadow-lg shadow-blue-500/20 shrink-0">
+          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-white text-3xl font-black">
+            DEV
+          </div>
+        </div>
+
+        <div class="text-center sm:text-left flex-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-3">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>网络性能评测工程师 · 独立开发者</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+            嗨，我是本站的创作者
+          </h1>
+          <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            欢迎来到我的个人网络实验室与知识镜像。我是一名深耕跨境网络架构与传输优化的开发者，长期关注国际 BGP 路由编排、IEPL/IPLC 物理专线与新一代开源代理协议演进。
+          </p>
+        </div>
+      </div>
+
+      <!-- 技术栈标签 -->
+      <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/80">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">专注领域与研究方向</div>
+        <div class="flex flex-wrap gap-2">
+          {skills.map((skill) => (
+            <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-medium">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <!-- 核心板块：为什么建立这个项目 -->
+    <section class="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed mb-12">
+      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+        <span class="text-blue-600">#</span> 建站初衷：让网络评测回归“数据与真实”
+      </h2>
+      <p class="text-sm sm:text-base">
+        在这个跨境办公、外贸出海、AI 研发（ChatGPT/Claude）以及跨国学术交流不可或缺的时代，网络通畅度直接决定了工作效率。然而，当前的节点推荐领域充斥着虚假的“测速图”、无脑的吹捧年付以及各类极易跑路的低质公网中转小作坊。
+      </p>
+      <p class="text-sm sm:text-base">
+        建立这个基于 GitHub Pages 的开源评测站，初衷就是**利用自动化基准测试工具与真实晚高峰网络压力模型，为个人开发者与企业跨境从业者提供客观、透明、可复现的专线质量参考**。
+      </p>
+    </section>
+
+    <!-- 核心板块：我的评测基准原则 -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+        <span class="text-blue-600">#</span> 我们的实验室评测守则
+      </h2>
+      <div class="grid grid-cols-1 gap-4">
+        {principles.map((p, idx) => (
+          <div class="p-5 rounded-2xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+            <span class="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-bold text-sm flex items-center justify-center shrink-0">
+              0{idx + 1}
+            </span>
+            <div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">{p.title}</h3>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 底部行动引导与回跳 -->
+    <div class="p-8 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-center shadow-xl shadow-blue-500/20">
+      <h2 class="text-xl sm:text-2xl font-black">查阅最新一期的 2026 专线实测数据</h2>
+      <p class="text-xs sm:text-sm text-blue-100 mt-2 max-w-xl mx-auto">
+        所有收录服务商均经过双重晚高峰压测与流媒体原生解锁验证，点击下方按钮返回排行榜。
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-4">
+        <a
+          href={`${baseUrl}/#ranking`}
+          class="px-6 py-3 rounded-xl bg-white text-blue-600 font-bold text-xs shadow-md hover:bg-blue-50 transition-all hover:scale-105"
+        >
+          查看 Top 9 综合推荐榜单
+        </a>
+        <a
+          href={`${baseUrl}/#posts`}
+          class="px-6 py-3 rounded-xl bg-blue-500/30 text-white border border-white/20 font-bold text-xs hover:bg-blue-500/50 transition-all"
+        >
+          查阅技术避坑指南
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
