@@ -1,0 +1,141 @@
+---
+import type { AirportItem } from '../data/airports';
+
+interface Props {
+  airport: AirportItem;
+}
+
+const { airport } = Astro.props;
+
+// Rank badge color styling
+const getRankBadgeStyle = (rank: number) => {
+  if (rank === 1) {
+    return 'bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-white shadow-amber-500/20';
+  }
+  if (rank === 2) {
+    return 'bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white shadow-blue-500/20';
+  }
+  if (rank === 3) {
+    return 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-emerald-500/20';
+  }
+  return 'bg-slate-800 text-slate-200 border border-slate-700';
+};
+
+const isTopTier = airport.rank <= 3;
+---
+
+<div class={`group relative rounded-2xl p-6 transition-all duration-300 border ${
+  airport.rank === 1
+    ? 'bg-gradient-to-b from-amber-500/[0.04] to-transparent dark:from-amber-500/[0.07] border-amber-500/40 shadow-lg shadow-amber-500/5 hover:border-amber-500'
+    : airport.rank === 2
+    ? 'bg-gradient-to-b from-blue-500/[0.03] to-transparent dark:from-blue-500/[0.05] border-blue-500/30 shadow-lg shadow-blue-500/5 hover:border-blue-500'
+    : 'bg-white dark:bg-[#111625] border-slate-200 dark:border-slate-800/80 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5'
+}`}>
+  <!-- Top Highlight Ribbon if Top 1 -->
+  {airport.rank === 1 && (
+    <div class="absolute -top-3 right-6 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-bold px-3 py-0.5 rounded-full shadow-md tracking-wider uppercase">
+      👑 综合评测总冠军
+    </div>
+  )}
+
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+    <!-- Left: Rank & Title & Meta -->
+    <div class="flex items-start gap-4 flex-1">
+      <!-- Rank Number -->
+      <div class={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl shadow-md shrink-0 ${getRankBadgeStyle(airport.rank)}`}>
+        #{airport.rank}
+      </div>
+
+      <div class="space-y-1.5 flex-1 min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {airport.name}
+          </h3>
+
+          {airport.badge && (
+            <span class="inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+              {airport.badge}
+            </span>
+          )}
+
+          <span class="text-[11px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+            始于 {airport.establishedYear}
+          </span>
+        </div>
+
+        {airport.description && (
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+            {airport.description}
+          </p>
+        )}
+
+        <!-- Feature Tags -->
+        {airport.features && (
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            {airport.features.map((feat) => (
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60">
+                ✓ {feat}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Center: Specs Info Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-xs shrink-0 lg:w-80">
+      <div>
+        <div class="text-slate-600 dark:text-slate-300">线路类型</div>
+        <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5 truncate">{airport.lineType}</div>
+      </div>
+      <div>
+        <div class="text-slate-600 dark:text-slate-300">支持协议</div>
+        <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5 truncate">{airport.protocols}</div>
+      </div>
+      <div>
+        <div class="text-slate-600 dark:text-slate-300">起始门槛</div>
+        <div class="font-bold text-amber-700 dark:text-amber-400 mt-0.5">{airport.monthlyPrice}</div>
+      </div>
+      <div class="col-span-2 sm:col-span-3">
+        <div class="text-slate-600 dark:text-slate-300">主力推荐配置</div>
+        <div class="font-medium text-slate-700 dark:text-slate-300 mt-0.5 truncate">{airport.planDesc}</div>
+      </div>
+    </div>
+
+    <!-- Right: Coupon & CTA Button -->
+    <div class="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end justify-center gap-3 shrink-0">
+      <!-- Coupon Button with Copy function -->
+      <button
+        type="button"
+        class="copy-coupon-btn flex items-center justify-between sm:justify-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200 border border-dashed border-slate-300 dark:border-slate-700 transition-colors"
+        data-coupon={airport.couponCode}
+        title="点击一键复制优惠券码"
+      >
+        <span class="text-slate-600 dark:text-slate-300 font-sans">优惠码:</span>
+        <span class="font-bold text-blue-600 dark:text-blue-400">{airport.couponCode}</span>
+        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+      </button>
+
+      <!-- Aff Link CTA -->
+      <a
+        href={airport.affUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wide transition-all shadow-md active:scale-95 text-center ${
+          airport.rank === 1
+            ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-amber-500/25'
+            : airport.rank === 2
+            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-blue-500/25'
+            : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/20'
+        }`}
+      >
+        <span>官网直达注册</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

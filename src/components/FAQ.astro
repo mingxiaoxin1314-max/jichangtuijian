@@ -1,0 +1,41 @@
+---
+const faqs = [
+  {
+    q: "IEPL 专线和 IPLC 专线有什么区别？我该怎么选？",
+    a: "IPLC（国际专用出租线路）是物理点对点专线，完全跨过公网防火墙，不经审查，延迟极低且极稳定；IEPL（国际以太网专线）采用二层以太网技术，同样不经过公网 GFW 过滤，性价比极高。对于绝大多数流媒体 4K/8K、海外 AI 工具与游戏加速场景，IEPL 专线体验与 IPLC 基本无差异，且价格更为亲民。"
+  },
+  {
+    q: "为什么推荐使用 VLESS 和 Hysteria2 协议？",
+    a: "传统的 Shadowsocks 或 VMess 协议特征已被深度学习防火墙精准识别。VLESS 搭配 Reality 技术实现了轻量且高仿真的 TLS 伪装；而基于 UDP 开发的 Hysteria2 / TUIC 则在丢包率高的恶劣弱网或移动网络环境下能爆发出数倍的带宽吞吐，是 2026 年的主流抗封锁协议方案。"
+  },
+  {
+    q: "为什么优惠码无法使用或提示失效？",
+    a: "部分优惠码为限时立减或特定周期（如半年付、年付）生效。请在结账界面输入优惠码后确认折扣明细。如果提示失效，可直接选择页面列出的基础无门槛套餐或体验套餐。"
+  },
+  {
+    q: "如何保证 ChatGPT、Claude 等海外 AI 服务的流畅访问？",
+    a: "OpenAI 和 Anthropic 对节点 IP 风控极为严苛。列表中如 Top 1「云界线」、Top 5「榴莲云」、Top 7「边缘节点」均针对原生住宅 IP 与双 ISP 进行了重点优化，支持全天候解锁 ChatGPT-4o、Claude 3.5 Sonnet 等工具，避免频繁验证码或账号异常。"
+  }
+];
+---
+
+<div class="space-y-4">
+  {faqs.map((faq, index) => (
+    <details class="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625] p-5 transition-all [&_summary::-webkit-details-marker]:hidden" open={index === 0}>
+      <summary class="flex cursor-pointer items-center justify-between gap-4 font-bold text-slate-900 dark:text-white text-base">
+        <span class="flex items-center gap-3">
+          <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs font-black shrink-0">
+            Q
+          </span>
+          <span>{faq.q}</span>
+        </span>
+        <svg class="w-5 h-5 shrink-0 text-slate-400 transition duration-300 group-open:-rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="mt-4 pl-9 text-sm leading-relaxed text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80 pt-3">
+        {faq.a}
+      </div>
+    </details>
+  ))}
+</div>

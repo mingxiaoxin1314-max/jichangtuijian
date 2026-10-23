@@ -1,0 +1,237 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AirportCard from '../components/AirportCard.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import FAQ from '../components/FAQ.astro';
+import { airportList } from '../data/airports';
+---
+
+<Layout
+  title="2026 最新机场推荐与评测排行榜 | 优质高速稳定翻墙梯子测评"
+  description="精选 2026 年度稳定高速机场推荐，涵盖 IEPL/IPLC 专线、VLESS、Hysteria2 协议。实测 4K/8K 秒开、低延迟游戏加速、ChatGPT/Claude 原生解锁，附最新专属优惠券码。"
+>
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden border-b border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-blue-500/5 via-transparent to-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-6 shadow-sm">
+        <span class="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span>
+        <span>2026 稳定专线节点横评与选购指南</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15] max-w-4xl mx-auto">
+        2026 高速稳定<span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">机场梯子推荐</span>排行榜
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        基于多地宽带（电信/联通/移动/校园网）晚高峰实际压测，甄选 9 大具备真实 IEPL/IPLC 专线与优质原生住宅 IP 的服务商，全天候保障流畅出海。
+      </p>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-10">
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400">9 大</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">旗舰服务商横评</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">100%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">纯专线/不过墙架构</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-black text-purple-600 dark:text-purple-400">4K/8K</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">晚高峰秒开拖拽</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400">¥5.6 起</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">超高性价比月付</div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="#ranking"
+          class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95 flex items-center gap-2"
+        >
+          <span>查看 Top 9 综合排名</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+        <a
+          href="#comparison"
+          class="px-6 py-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition-all"
+        >
+          <span>参数与价格速查表</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Airport Ranking List -->
+  <section id="ranking" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+      <div>
+        <div class="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase mb-1">Rankings & Reviews</div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+          2026 年度 Top 9 优质机场综合评测榜
+        </h2>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md">
+        按综合综合稳定性、晚高峰速率、原生 IP 解锁质量及客单价多维度综合评分加权排序。
+      </p>
+    </div>
+
+    <!-- Airport Card List -->
+    <div class="space-y-4">
+      {airportList.map((airport) => (
+        <AirportCard airport={airport} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 2: Comparison Table -->
+  <section id="comparison" class="py-16 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase mb-1">Quick Comparison</div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+          全品牌核心规格与专享优惠速查
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          横向直观比对各品牌专线方案、主流传输协议、最低月费与官方立减口令。
+        </p>
+      </div>
+
+      <ComparisonTable />
+    </div>
+  </section>
+
+  <!-- Section 3: Buyer's Guide -->
+  <section id="guide" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <div class="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase mb-1">Buying Guide</div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+        2026 翻墙梯子选购避坑原则
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+        掌握以下核心准则，避免买到劣质直连转发与频繁跑路的星期小作坊。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg">
+          01
+        </div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">首选真内网专线</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          尽量选择标明 IEPL 或 IPLC 的全专线服务商。普通的公网中转或直连线路极易受 GFW 阻断导致大面积飘红或敏感期断连。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg">
+          02
+        </div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">优先短周期试用</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          新手选购切忌一上来就购买两三年超长套餐。建议先以月付、季付或体验套餐检验本地运营商在晚高峰时段的真实延迟与吞吐表现。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-lg">
+          03
+        </div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">认准优质原生 IP</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          对于有日常使用 ChatGPT、Claude、Netflix 等流媒体及 AI 需求的用户，落地节点的欺诈分与住宅属性至关重要，能避免频繁的人机验证。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg">
+          04
+        </div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">多协议与现代内核</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          推荐搭配 Clash Verge Rev、Sing-box 或 Shadowrocket 客户端，优先启用 VLESS-Reality 或 Hysteria2 协议以获得极限网络吞吐。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: FAQ -->
+  <section id="faq" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <div class="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase mb-1">Frequently Asked Questions</div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+        常见疑问解答 (FAQ)
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+        帮助您快速理清专线协议区别与日常使用技巧。
+      </p>
+    </div>
+
+    <FAQ />
+  </section>
+
+  <!-- Floating Toast Notification for Coupon Copy -->
+  <div
+    id="copy-toast"
+    class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900 text-white dark:bg-blue-600 text-xs font-semibold shadow-xl"
+  >
+    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="copy-toast-text">优惠券码已成功复制到剪贴板！</span>
+  </div>
+
+  <!-- Coupon Copy Client Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyButtons = document.querySelectorAll('.copy-coupon-btn');
+      const toast = document.getElementById('copy-toast');
+      const toastText = document.getElementById('copy-toast-text');
+      let toastTimeout = null;
+
+      copyButtons.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const coupon = btn.getAttribute('data-coupon');
+          if (!coupon) return;
+
+          try {
+            await navigator.clipboard.writeText(coupon);
+            showToast(`优惠码 [${coupon}] 已复制！`);
+          } catch (err) {
+            // fallback
+            const input = document.createElement('input');
+            input.value = coupon;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast(`优惠码 [${coupon}] 已复制！`);
+          }
+        });
+      });
+
+      function showToast(message) {
+        if (!toast || !toastText) return;
+        toastText.textContent = message;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2200);
+      }
+    });
+  </script>
+</Layout>
