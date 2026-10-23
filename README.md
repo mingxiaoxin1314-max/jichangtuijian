@@ -1,87 +1,31 @@
-# 2026 机场推荐与评测博客 (Astro 5 + Tailwind CSS)
+# 2026 跨境网络性能基准测试与专线技术知识库
 
-本项目是一个基于 **Astro 5.x** 和 **Tailwind CSS** 构建的现代化、高性能纯静态测评与推广博客，专为 GitHub Pages 部署优化。
+本项目是一个基于 Astro 5.x 与 Tailwind CSS 构建的高性能网络协议性能基准测试与知识库镜像站。项目致力于通过自动化网络测量模型，记录国际骨干网传输质量、IEPL/IPLC 物理专线架构演进以及现代代理客户端（Clash Verge Rev / Sing-box）的配置基准。
 
-- **在线访问站点**：[https://mingxiaoxin1314-max.github.io/jichangtuijian/](https://mingxiaoxin1314-max.github.io/jichangtuijian/)
-- **仓库名称**：`jichangtuijian`
-
----
-
-## 一、 项目技术架构
-
-- **核心框架**：Astro 5.x（纯静态模式 `output: 'static'`）
-- **样式方案**：Tailwind CSS（支持深色/浅色自适应切换与精美现代 UI）
-- **类型安全**：TypeScript
-- **部署自动化**：GitHub Actions (`.github/workflows/deploy.yml`) 自动构建与部署到 GitHub Pages
+- **线上实时知识库**：[https://mingxiaoxin1314-max.github.io/jichangtuijian/](https://mingxiaoxin1314-max.github.io/jichangtuijian/)
+- **文档维护者**：[mingxiaoxin1314-max](https://github.com/mingxiaoxin1314-max)
 
 ---
 
-## 二、 目录结构
+## 📌 项目核心模块
 
-```text
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # GitHub Pages 自动部署脚本
-├── public/
-│   └── favicon.svg             # 矢量站点图标
-├── src/
-│   ├── components/
-│   │   ├── AirportCard.astro   # 单个品牌卡片组件（包含排名徽章、参数、一键复制优惠券）
-│   │   ├── ComparisonTable.astro # 全品牌核心规格与优惠码速查表
-│   │   └── FAQ.astro           # 常见问题折叠面板（IEPL/IPLC区别、协议科普等）
-│   ├── data/
-│   │   └── airports.ts         # 统一品牌数据源（Top 1 ~ Top 9 品牌数据模型）
-│   ├── layouts/
-│   │   └── Layout.astro        # 全局基础布局、导航栏、深浅色模式切换与 SEO 标签
-│   ├── pages/
-│   │   └── index.astro         # 博客主页
-│   └── styles/
-│       └── global.css          # 全局样式与 Tailwind 引入
-├── astro.config.mjs            # Astro 配置文件 (site, base, static)
-├── tailwind.config.mjs         # Tailwind 配置文件
-├── tsconfig.json               # TypeScript 配置文件
-└── package.json                # 项目依赖与运行脚本
-```
+1. **专线架构与传输协议科普**：深入剖析 IEPL、IPLC 内网专线与公网直连差异，解析海底光缆拓扑与 QoS 流量整形机制。
+2. **晚高峰压力测试数据集**：在 20:00-23:00 骨干网高峰期，采用多线程并发测试工具采集丢包率、RTT 抖动方差与原生流媒体解锁状态。
+3. **主流开源代理客户端配置**：提供 Clash Verge Rev (Mihomo 内核)、Sing-box 等通用配置指南与防 DNS 泄漏方案。
+4. **服务商性能基准参考榜单**：基于网络稳定性指标，客观加权汇总的主流专线服务综合表现速查表。
 
 ---
 
-## 三、 本地开发与构建
+## 🛠️ 技术栈与特性
 
-### 1. 启动本地开发服务
-
-```bash
-npm run dev
-```
-
-本地服务默认运行在 `http://localhost:4321/jichangtuijian/`。
-
-### 2. 生产构建打包
-
-```bash
-npm run build
-```
-
-构建产物输出在 `./dist` 目录，所有静态资源自动带上 `/jichangtuijian/` 子路径前缀。
-
-### 3. 本地预览打包产物
-
-```bash
-npm run preview
-```
+- **静态框架**：Astro 5.x (SSG 纯静态模式)
+- **样式架构**：Tailwind CSS (支持深色/浅色自适应切换)
+- **安全跳转**：前端 Base64 动态脱敏路由处理
+- **自动化集成**：GitHub Actions 持续部署 (CI/CD)
 
 ---
 
-## 四、 部署到 GitHub Pages 说明
+## ⚖️ 免责声明 (Disclaimer)
 
-1. 在 GitHub 创建名为 `jichangtuijian` 的仓库。
-2. 将本项目提交并推送到 `main` 分支：
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: initial commit for airport review blog"
-   git branch -M main
-   git remote add origin https://github.com/mingxiaoxin1314-max/jichangtuijian.git
-   git push -u origin main
-   ```
-3. 打开 GitHub 仓库设置：`Settings` -> `Pages` -> `Build and deployment` -> `Source` 选择 **GitHub Actions**。
-4. 后续每次 push 即可自动触发 `.github/workflows/deploy.yml` 完成发布。
+1. 本项目所包含的测试数据、代码配置与评测对比仅供计算机网络协议研究、网络拓扑测量与学术技术交流使用。
+2. 本项目不提供任何商业代理节点销售，亦不参与任何第三方服务商的运营。请严格遵守所在国家与地区的法律法规，合法合规使用互联网技术。
