@@ -116,17 +116,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           </button>
 
           <!-- Quick Top1 CTA Button -->
-          <a
-            href="https://9625mofan01.yunjiexianaff.com/#/?code=OOYhSj0L"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm shadow-blue-500/30 transition-all hover:scale-[1.02]"
+          <button
+            type="button"
+            data-target="aHR0cHM6Ly85NjI1bW9mYW4wMS55dW5qaWV4aWFuYWZmLmNvbS8jLz9jb2RlPU9PWWhTajBM"
+            class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm shadow-blue-500/30 transition-all hover:scale-[1.02] cursor-pointer"
+            title="直达 Top 1 云界线官网"
           >
             <span>Top 1 专线直达</span>
             <svg width="14" height="14" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </header>
@@ -210,6 +210,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           localStorage.setItem('theme', 'dark');
         }
         updateThemeIcons();
+      });
+
+      // Global Dynamic Base64 Link Redirect Handler
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-target]');
+        if (!trigger) return;
+        e.preventDefault();
+        const b64 = trigger.getAttribute('data-target');
+        if (b64) {
+          try {
+            const dest = atob(b64);
+            const win = window.open(dest, '_blank', 'noopener,noreferrer');
+            if (win) win.opener = null;
+          } catch (err) {
+            console.error('Target jump failed', err);
+          }
+        }
       });
     </script>
   </body>

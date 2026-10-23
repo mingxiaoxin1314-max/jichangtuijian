@@ -79,17 +79,16 @@ const otherAirports = airportList.filter((item) => item.id !== airport.id).slice
             <div class="text-xs text-slate-400">最低门槛</div>
             <div class="text-xl font-bold text-amber-500">{airport.monthlyPrice}</div>
           </div>
-          <a
-            href={airport.affUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95"
+          <button
+            type="button"
+            data-target={airport.targetB64}
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <span>访问官网注册</span>
             <svg width="14" height="14" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -238,14 +237,13 @@ const otherAirports = airportList.filter((item) => item.id !== airport.id).slice
         >
           一键复制优惠码: {airport.couponCode}
         </button>
-        <a
-          href={airport.affUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-8 py-3.5 rounded-xl bg-white text-blue-700 hover:bg-slate-100 font-bold text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 text-center"
+        <button
+          type="button"
+          data-target={airport.targetB64}
+          class="px-8 py-3.5 rounded-xl bg-white text-blue-700 hover:bg-slate-100 font-bold text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 text-center cursor-pointer"
         >
           立即前往官网体验 →
-        </a>
+        </button>
       </div>
     </div>
 
