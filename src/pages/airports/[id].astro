@@ -26,6 +26,55 @@ const testMetrics = {
 
 // Other airports for internal linking
 const otherAirports = airportList.filter((item) => item.id !== airport.id).slice(0, 3);
+
+// Schema.org structured data for Google / Bing Rich Snippets
+const schemaProduct = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": `${airport.name} 网络专线服务`,
+  "description": airport.description || `${airport.name} 2026 年度深度实测评测`,
+  "brand": {
+    "@type": "Brand",
+    "name": airport.name
+  },
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": airport.score || 9.5,
+      "bestRating": "10"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "2026 机场推荐与评测"
+    }
+  }
+};
+
+const schemaBreadcrumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://mingxiaoxin1314-max.github.io/jichangtuijian/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "机场评测",
+      "item": "https://mingxiaoxin1314-max.github.io/jichangtuijian/#ranking"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": airport.name,
+      "item": `https://mingxiaoxin1314-max.github.io/jichangtuijian/airports/${airport.id}/`
+    }
+  ]
+};
 ---
 
 <Layout
@@ -33,6 +82,10 @@ const otherAirports = airportList.filter((item) => item.id !== airport.id).slice
   description={`${airport.name}深度评测：基于2026年晚高峰32线程压测，实测下行带宽${testMetrics.bandwidth}、延迟${testMetrics.latency}，纯${airport.lineType}，支持${airport.protocols}。附最新官方专属立减优惠码：${airport.couponCode}。`}
   keywords={`${airport.name}, ${airport.name}怎么样, ${airport.name}优惠码, ${airport.name}测速, ${airport.lineType}, 2026机场推荐`}
 >
+  <!-- Schema.org 结构化数据 (提升搜索引擎富文本摘要展示) -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaProduct, null, 2)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaBreadcrumbs, null, 2)} />
+
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">

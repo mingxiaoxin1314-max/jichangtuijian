@@ -41,12 +41,30 @@ const featuredPosts = [
     readTime: "9 分钟"
   }
 ];
+
+const schemaItemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "2026 高速稳定网络专线排行榜",
+  "description": "基于晚高峰 32 线程压测的优质专线节点综合评测与推荐",
+  "numberOfItems": airportList.length,
+  "itemListElement": airportList.map((item) => ({
+    "@type": "ListItem",
+    "position": item.rank,
+    "name": `${item.name} (${item.lineType})`,
+    "description": item.description || `${item.badge} · ${item.planDesc}`,
+    "url": `https://mingxiaoxin1314-max.github.io/jichangtuijian/airports/${item.id}/`
+  }))
+};
 ---
 
 <Layout
   title="2026 最新机场推荐与评测排行榜 | 优质高速稳定翻墙梯子测评"
   description="精选 2026 年度稳定高速机场推荐，涵盖 IEPL/IPLC 专线、VLESS、Hysteria2 协议。实测 4K/8K 秒开、低延迟游戏加速、ChatGPT/Claude 原生解锁，附最新专属优惠券码。"
 >
+  <!-- Schema.org 结构化数据 (大幅提升 Bing/Google 搜索点击率) -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaItemList, null, 2)} />
+
   <!-- Hero Section -->
   <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden border-b border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-blue-500/5 via-transparent to-transparent">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
