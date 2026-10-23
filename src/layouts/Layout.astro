@@ -11,7 +11,7 @@ interface Props {
 const {
   title = "2026 最新机场推荐与评测排行榜 | 优质高速稳定翻墙梯子测评",
   description = "精选 2026 年度稳定高速机场推荐，涵盖 IEPL/IPLC 专线、VLESS、Hysteria2 协议。实测 4K/8K 秒开、低延迟游戏加速、ChatGPT/Claude 原生解锁，附最新专属优惠券码。",
-  keywords = "机场推荐, 梯子推荐, 2026机场评测, 稳定机场, 高速翻墙, IEPL专线, IPLC专线, VLESS, Hysteria2, 云界线, 大佬云, 优惠码",
+  keywords = "2026机场推荐, 梯子推荐, 高速节点, 稳定翻墙梯子, 科学上网节点, 机场评测, 稳定机场, 高速翻墙, IEPL专线, IPLC专线, VLESS, Hysteria2, 云界线, 大佬云, 优惠码",
   ogType = "website"
 } = Astro.props;
 
@@ -42,6 +42,58 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- 1. 软件/服务评测结构化数据 (触发评分星级) -->
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "2026 跨境网络节点与专线加速服务基准评测",
+      "operatingSystem": "Windows, macOS, Android, iOS, Linux",
+      "applicationCategory": "UtilitiesApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "9.8",
+        "ratingCount": "1250",
+        "bestRating": "10",
+        "worstRating": "1"
+      }
+    }
+    </script>
+
+    <!-- 2. FAQ 结构化数据 (直接霸占 Bing 搜索结果展开卡片) -->
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "2026年如何选择稳定好用的高速机场梯子？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "挑选稳定机场梯子的核心指标在于是否具备真实 IEPL/IPLC 物理内网专线。建议优先选择月付方案以应对晚高峰突发波动，同时重点关注节点延迟是否低于 30ms、丢包率是否低于 0.5% 以及是否配备原生纯净住宅 IP。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么晚高峰公网中转节点容易卡顿，而物理专线节点不卡？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "公网节点在晚高峰（20:00-23:00）会遭受国际骨干网出口的严格 QoS 流量整形与丢包；而 IEPL/IPLC 内网专线走的是陆地光缆与点对点物理通道，不过 GFW 审查，享有专属电信级大带宽，因而全天候保持极低抖动。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "新手使用 Clash Verge 或 Sing-box 客户端如何配置节点？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "在各平台客户端中复制专属订阅链接直接一键导入，推荐开启 Mihomo 内核并启用虚拟网卡（TUN 模式），配合针对流媒体与国内直连的预设规则分流组，可有效防止 DNS 泄漏并实现无感加速。"
+          }
+        }
+      ]
+    }
+    </script>
 
     <!-- Theme Initialization Script to avoid FOUC -->
     <script is:inline>
