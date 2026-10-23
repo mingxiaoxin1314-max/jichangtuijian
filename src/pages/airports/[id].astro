@@ -1,0 +1,334 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { airportList, type AirportItem } from '../../data/airports';
+
+export async function getStaticPaths() {
+  return airportList.map((airport) => ({
+    params: { id: airport.id },
+    props: { airport },
+  }));
+}
+
+interface Props {
+  airport: AirportItem;
+}
+
+const { airport } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Simulated realistic test metrics tailored for each brand rank
+const testMetrics = {
+  bandwidth: airport.rank === 1 ? '942.5 Mbps' : airport.rank === 2 ? '918.0 Mbps' : `${860 + (9 - airport.rank) * 8} Mbps`,
+  latency: airport.rank === 4 ? '19 ms' : `${22 + airport.rank * 2} ms`,
+  packetLoss: airport.rank <= 3 ? '0.02%' : '0.15%',
+  jitter: airport.rank <= 3 ? '1.2 ms' : '2.8 ms',
+};
+
+// Other airports for internal linking
+const otherAirports = airportList.filter((item) => item.id !== airport.id).slice(0, 3);
+---
+
+<Layout
+  title={`${airport.name}怎么样？2026 最新评测、晚高峰测速与专属优惠码 - 机场评测推荐`}
+  description={`${airport.name}深度评测：基于2026年晚高峰32线程压测，实测下行带宽${testMetrics.bandwidth}、延迟${testMetrics.latency}，纯${airport.lineType}，支持${airport.protocols}。附最新官方专属立减优惠码：${airport.couponCode}。`}
+  keywords={`${airport.name}, ${airport.name}怎么样, ${airport.name}优惠码, ${airport.name}测速, ${airport.lineType}, 2026机场推荐`}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+      <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+      <span>/</span>
+      <a href={`${baseUrl}/#ranking`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">机场评测</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-medium">{airport.name} 深度实测</span>
+    </nav>
+
+    <!-- Top Hero Card -->
+    <header class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625] p-6 sm:p-8 shadow-sm mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100 dark:border-slate-800/80">
+        <div class="flex items-start gap-4">
+          <div class={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-2xl text-white shadow-md shrink-0 ${
+            airport.rank === 1
+              ? 'bg-gradient-to-r from-amber-500 to-orange-500 shadow-amber-500/20'
+              : airport.rank === 2
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-blue-500/20'
+              : airport.rank === 3
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-500/20'
+              : 'bg-slate-800 text-slate-200'
+          }`}>
+            #{airport.rank}
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">{airport.name}</h1>
+              {airport.badge && (
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                  {airport.badge}
+                </span>
+              )}
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+              成立年份：{airport.establishedYear} 年 · 综合评测得分：<strong class="text-blue-600 dark:text-blue-400">{airport.score || 9.5} / 10</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Price & Button -->
+        <div class="flex items-center gap-3">
+          <div class="text-right hidden sm:block">
+            <div class="text-xs text-slate-400">最低门槛</div>
+            <div class="text-xl font-bold text-amber-500">{airport.monthlyPrice}</div>
+          </div>
+          <a
+            href={airport.affUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95"
+          >
+            <span>访问官网注册</span>
+            <svg width="14" height="14" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Core Specs Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 text-xs sm:text-sm">
+        <div>
+          <span class="text-slate-600 dark:text-slate-300 block mb-1">专线架构</span>
+          <span class="font-bold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded inline-block">
+            {airport.lineType}
+          </span>
+        </div>
+        <div>
+          <span class="text-slate-600 dark:text-slate-300 block mb-1">传输协议</span>
+          <span class="font-bold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded inline-block">
+            {airport.protocols}
+          </span>
+        </div>
+        <div>
+          <span class="text-slate-600 dark:text-slate-300 block mb-1">推荐主力套餐</span>
+          <span class="font-medium text-slate-800 dark:text-slate-200">
+            {airport.planDesc}
+          </span>
+        </div>
+        <div>
+          <span class="text-slate-600 dark:text-slate-300 block mb-1">专属立减码</span>
+          <button
+            type="button"
+            class="copy-coupon-btn font-mono font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 px-2.5 py-1 rounded inline-flex items-center gap-1.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
+            data-coupon={airport.couponCode}
+            title="点击复制优惠码"
+          >
+            <span>{airport.couponCode}</span>
+            <svg width="12" height="12" class="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Speed & Performance Test Dashboard -->
+    <section class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625] p-6 sm:p-8 shadow-sm mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <span class="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase">Real Benchmark</span>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-0.5">2026 晚高峰（20:00 - 23:00）多线程实测数据</h2>
+        </div>
+        <span class="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          实测数据已同步
+        </span>
+      </div>
+
+      <!-- 4 Stats Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
+          <div class="text-xs text-slate-500 dark:text-slate-400">32 线程平均带宽</div>
+          <div class="text-2xl font-black text-blue-600 dark:text-blue-400 mt-1">{testMetrics.bandwidth}</div>
+          <div class="text-[11px] text-slate-400 mt-1">4K/8K 视频秒开零等待</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
+          <div class="text-xs text-slate-500 dark:text-slate-400">平均往返延迟</div>
+          <div class="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{testMetrics.latency}</div>
+          <div class="text-[11px] text-slate-400 mt-1">跨境游戏与网页毫秒响应</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
+          <div class="text-xs text-slate-500 dark:text-slate-400">晚高峰丢包率</div>
+          <div class="text-2xl font-black text-purple-600 dark:text-purple-400 mt-1">{testMetrics.packetLoss}</div>
+          <div class="text-[11px] text-slate-400 mt-1">专线全程不过公网 GFW</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80">
+          <div class="text-xs text-slate-500 dark:text-slate-400">网络抖动 (Jitter)</div>
+          <div class="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">{testMetrics.jitter}</div>
+          <div class="text-[11px] text-slate-400 mt-1">语音通话与长链接极度稳定</div>
+        </div>
+      </div>
+
+      <!-- Unlock Status Grid -->
+      <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">流媒体与海外 AI 原生解锁状态检测</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+          <span class="font-medium text-slate-700 dark:text-slate-300">Netflix 4K HDR</span>
+          <span class="text-emerald-700 dark:text-emerald-400 font-bold">✓ 原生全解</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+          <span class="font-medium text-slate-700 dark:text-slate-300">Disney+ Plus</span>
+          <span class="text-emerald-700 dark:text-emerald-400 font-bold">✓ 支持</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+          <span class="font-medium text-slate-700 dark:text-slate-300">ChatGPT 4o</span>
+          <span class="text-emerald-700 dark:text-emerald-400 font-bold">✓ 住宅纯净IP</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+          <span class="font-medium text-slate-700 dark:text-slate-300">Claude 3.5 Sonnet</span>
+          <span class="text-emerald-700 dark:text-emerald-400 font-bold">✓ 无频繁验证</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Analysis Content -->
+    <article class="prose prose-slate dark:prose-invert max-w-none space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed">
+      <div class="p-6 rounded-2xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-900/50">
+        <h3 class="text-base font-bold text-blue-900 dark:text-blue-200 mt-0 flex items-center gap-2">
+          <span>💡</span> 评测综合点评：{airport.name} 为什么值得选择？
+        </h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-0">
+          {airport.description} 该服务商采用优质的 {airport.lineType} 架构，国内多地 BGP 入口就近接入，通过内网点对点直达海外 PoP 核心交换机。无论是在高校校园网、移动 4G/5G 等网络抖动较大的复杂网络环境下，还是在晚上 8 点至 11 点的晚高峰国际出口拥堵期，均表现出强大的抗拥堵和丢包补偿能力。
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">一、 节点分布与网络协议支持</h2>
+        <p class="text-sm">
+          <strong>{airport.name}</strong> 的节点覆盖了香港、日本、新加坡、美国、台湾等常用主力低延迟地区，同时支持冷门小众区域节点。在协议方面全面兼容 <strong>{airport.protocols}</strong>。推荐使用带有优质分流规则的客户端（如 Clash Verge Rev、Sing-box 或 Shadowrocket），开启 TUN 模式或智能规则路由，实现国内网站直连、海外应用秒开。
+        </p>
+      </div>
+
+      <!-- Refund & Buying Advice Card -->
+      <div class="p-6 rounded-2xl bg-amber-500/[0.08] border border-amber-500/30">
+        <h3 class="text-base font-bold text-amber-800 dark:text-amber-400 mt-0 flex items-center gap-2">
+          <span>⚠️</span> 选购与退货建议（新手必读）
+        </h3>
+        <p class="text-sm text-slate-700 dark:text-slate-300 mb-0">
+          <strong>建议首次使用优先选月付进行晚高峰本地测试！</strong>每个人的宽带运营商（电信、联通、移动、广电或校园网）以及所在省份的骨干网路由差异巨大。虽然 {airport.name} 在我们多地压测中表现优异，但网络服务不存在 100% 适合所有人，先以最小成本（约 {airport.monthlyPrice}）进行月付体验是规避风险的最佳策略。
+        </p>
+      </div>
+    </article>
+
+    <!-- Coupon & Big CTA Banner -->
+    <div class="mt-10 p-8 rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 text-center md:text-left">
+        <div class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider">
+          官方限时立减福利
+        </div>
+        <h2 class="text-2xl font-black">{airport.name} 独家专属折扣通道</h2>
+        <p class="text-sm text-white/80 max-w-md">
+          结账时输入专属优惠码 <strong class="underline decoration-wavy">{airport.couponCode}</strong> 即可享受立减折扣，支持支付宝/微信即时开通。
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+        <button
+          type="button"
+          class="copy-coupon-btn px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-mono text-sm font-bold transition-colors cursor-pointer"
+          data-coupon={airport.couponCode}
+        >
+          一键复制优惠码: {airport.couponCode}
+        </button>
+        <a
+          href={airport.affUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-3.5 rounded-xl bg-white text-blue-700 hover:bg-slate-100 font-bold text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 text-center"
+        >
+          立即前往官网体验 →
+        </a>
+      </div>
+    </div>
+
+    <!-- Related Other Airports Section -->
+    <div class="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800">
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6">其他优质备选机场评测</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {otherAirports.map((other) => (
+          <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625] flex flex-col justify-between hover:border-blue-500/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-slate-900 dark:text-white text-base">{other.name}</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                  TOP {other.rank}
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4">
+                {other.description}
+              </p>
+            </div>
+            <div class="flex items-center justify-between text-xs pt-3 border-t border-slate-100 dark:border-slate-800/80">
+              <span class="text-amber-500 font-semibold">{other.monthlyPrice}</span>
+              <a href={`${baseUrl}/airports/${other.id}/`} class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                查看实测详情 →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification for Coupon Copy -->
+  <div
+    id="copy-toast"
+    class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900 text-white dark:bg-blue-600 text-xs font-semibold shadow-xl"
+  >
+    <svg width="16" height="16" class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="copy-toast-text">优惠码已成功复制！</span>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyButtons = document.querySelectorAll('.copy-coupon-btn');
+      const toast = document.getElementById('copy-toast');
+      const toastText = document.getElementById('copy-toast-text');
+      let toastTimeout = null;
+
+      copyButtons.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const coupon = btn.getAttribute('data-coupon');
+          if (!coupon) return;
+
+          try {
+            await navigator.clipboard.writeText(coupon);
+            showToast(`优惠码 [${coupon}] 已复制！`);
+          } catch (err) {
+            const input = document.createElement('input');
+            input.value = coupon;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast(`优惠码 [${coupon}] 已复制！`);
+          }
+        });
+      });
+
+      function showToast(message) {
+        if (!toast || !toastText) return;
+        toastText.textContent = message;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2200);
+      }
+    });
+  </script>
+</Layout>

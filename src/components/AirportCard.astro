@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { airport } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Rank badge color styling
 const getRankBadgeStyle = (rank: number) => {
@@ -42,14 +43,18 @@ const isTopTier = airport.rank <= 3;
     <!-- Left: Rank & Title & Meta -->
     <div class="flex items-start gap-4 flex-1">
       <!-- Rank Number -->
-      <div class={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl shadow-md shrink-0 ${getRankBadgeStyle(airport.rank)}`}>
-        #{airport.rank}
-      </div>
+      <a href={`${baseUrl}/airports/${airport.id}/`} class="shrink-0" title={`查看 ${airport.name} 独立深度评测`}>
+        <div class={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl shadow-md ${getRankBadgeStyle(airport.rank)}`}>
+          #{airport.rank}
+        </div>
+      </a>
 
       <div class="space-y-1.5 flex-1 min-w-0">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            {airport.name}
+            <a href={`${baseUrl}/airports/${airport.id}/`}>
+              {airport.name}
+            </a>
           </h3>
 
           {airport.badge && (
@@ -135,6 +140,14 @@ const isTopTier = airport.rank <= 3;
         <svg width="14" height="14" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
         </svg>
+      </a>
+
+      <!-- Subpage Link -->
+      <a
+        href={`${baseUrl}/airports/${airport.id}/`}
+        class="text-xs text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 font-medium py-0.5 text-center transition-colors"
+      >
+        查看 {airport.name} 独立实测详情 →
       </a>
     </div>
   </div>

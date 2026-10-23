@@ -1,0 +1,129 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  title="IEPL 与 IPLC 内网专线技术深度科普：为什么晚高峰从不拥堵？ - 机场评测推荐"
+  description="深度解析科学上网底层的 IEPL 国际以太网专线与 IPLC 物理专线架构原理，对比公网中转与 BGP 隧道差异，揭示专线在晚高峰零拥堵、零丢包的技术根源。"
+  keywords="IEPL专线, IPLC专线, 专线原理, 晚高峰不卡顿, 机场线路类型, 翻墙原理, 2026专线推荐"
+  ogType="article"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+      <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+      <span>/</span>
+      <a href={`${baseUrl}/#posts`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-medium">专线底层科普</span>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-4">
+        <span>⚡ 网络底层架构剖析</span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+        IEPL 与 IPLC 内网专线技术深度科普：为什么晚高峰从不拥堵？
+      </h1>
+      <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mt-4">
+        <span>更新日期：2026 年 10 月</span>
+        <span>·</span>
+        <span>阅读时间：约 8 分钟</span>
+        <span>·</span>
+        <span class="text-blue-700 dark:text-blue-400 font-medium">✓ 计算机网络架构解析</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <article class="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300 space-y-6">
+      <p>
+        许多人在使用普通翻墙软件时，经常遇到“白天速度飞快，一到晚上 8 点至 11 点就疯狂转圈卡顿”的现象。而优质专线机场却能做到全天候 4K/8K 秒开、延迟始终如一。这背后的根本原因在于：<strong>你的流量走的究竟是拥挤的公网国际出口，还是独享的内网专线管道。</strong>
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">一、 四类主流网络线路架构对比</h2>
+
+      <div class="space-y-4 my-6 not-prose">
+        <!-- Level 1 -->
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-slate-900 dark:text-white text-base">1. 普通公网直连（直连机房 VPS）</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300 font-semibold">体验最差</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            用户客户端直接发起 TCP/UDP 请求直连海外服务器。流量全程经过中国三大运营商的公网国际出口路由器并接受 GFW 深度包检测（DPI）。晚高峰公网国际出口拥堵不堪，丢包率普遍突破 40%，且 IP 随时可能被墙阻断。
+          </p>
+        </div>
+
+        <!-- Level 2 -->
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-slate-900 dark:text-white text-base">2. 公网隧道中转（国内机房端口转发）</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300 font-semibold">过渡方案</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            国内客户端先连接到国内某个中转服务器（如广东/上海机房），再由国内机房通过加密隧道走公网转发至海外。国内延迟降低了，但中转服务器到海外落地机房依然走公网国际出口，敏感时期中转机房容易被查封通报。
+          </p>
+        </div>
+
+        <!-- Level 3 -->
+        <div class="p-5 rounded-2xl border border-blue-500/40 bg-blue-50/20 dark:bg-blue-950/20">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-blue-700 dark:text-blue-300 text-base">3. IEPL（国际以太网私有专线 - 主流首选）</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-semibold">旗舰推荐</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            由持牌电信运营商提供的二层跨国以太网专线，国内入口（如深圳、上海）通过光纤二层内网直连海外机房（如香港、东京）。<strong>流量全程不经过公网 GFW 防火墙检测，独享专用带宽通道，抗封锁能力与晚高峰速度极佳。</strong>
+          </p>
+        </div>
+
+        <!-- Level 4 -->
+        <div class="p-5 rounded-2xl border border-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/20">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-emerald-700 dark:text-emerald-300 text-base">4. IPLC（国际私有租用电路 - 物理专线）</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-semibold">顶级企业级</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            电信运营商铺设的点对点纯物理光缆电路，完全脱离互联网公网交换层。延迟接近光纤物理极限（例如深圳到香港仅需 2~5ms），任何敏感时期 100% 畅通，属于高端金融及跨国企业级配置。
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">二、 为什么专线在晚高峰从不拥堵？</h2>
+      <p>
+        这涉及到电信运营商的 <strong>QoS（服务质量保证）</strong> 与带宽隔离机制：
+      </p>
+      <ul>
+        <li><strong>固定切片通道：</strong> 专线在海底光缆中拥有物理或二层虚拟的专用时间片通道，普通公网网民下载产生数万 Gbps 的拥塞，也丝毫不会侵占分配给专线的物理管道。</li>
+        <li><strong>零审查无时延：</strong> 公网流量在出境时需要经过庞大复杂的 DPI 审查集群进行特征计算与模式匹配，这会带来数十毫秒的额外抖动；专线免去审查流程，端到端毫秒直达。</li>
+        <li><strong>BGP 智能容灾：</strong> 优质专线服务商（如 Top 1 云界线、Top 2 大佬云）在国内部署了多省多线的 BGP 入口，即便某条光纤发生意外，系统可在毫秒级自动切换至备用内网专线。</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">三、 IEPL 与 IPLC 应该怎么选？</h2>
+      <p>
+        对于个人用户、影音发烧友、科研人员和远程办公人员：
+      </p>
+      <div class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 not-prose">
+        <ul class="text-xs sm:text-sm space-y-3 text-slate-700 dark:text-slate-300">
+          <li><strong>👉 个人与工作室首选 IEPL：</strong> 性价比极高（每月约 ¥5.6 ~ ¥15），晚高峰 4K/8K 毫无压力，综合体验与 IPLC 无感差异。</li>
+          <li><strong>👉 极高安全与跨境业务首选 IPLC：</strong> 预算充足、需要绝对 100% 不掉线的金融操盘、跨境电商店铺防封号等严苛环境，选择 IPLC 物理专线（如 Top 7 边缘节点）。</li>
+        </ul>
+      </div>
+
+      <!-- Bottom Link CTA -->
+      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white not-prose flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="font-bold text-base">想要挑选全专线架构的高速机场？</div>
+          <div class="text-xs text-white/80 mt-1">查看 2026 年度经过实际测试的 Top 9 专线机场对比表。</div>
+        </div>
+        <a
+          href={`${baseUrl}/#comparison`}
+          class="px-5 py-2.5 rounded-xl bg-white text-indigo-700 hover:bg-slate-100 font-bold text-xs transition-colors shrink-0 shadow"
+        >
+          查看专线参数对比表 →
+        </a>
+      </div>
+    </article>
+  </div>
+</Layout>

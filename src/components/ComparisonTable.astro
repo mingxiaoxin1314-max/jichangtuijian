@@ -1,5 +1,6 @@
 ---
 import { airportList } from '../data/airports';
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625] shadow-sm">
@@ -12,7 +13,7 @@ import { airportList } from '../data/airports';
         <th class="py-3.5 px-4">支持协议</th>
         <th class="py-3.5 px-4">月均底价</th>
         <th class="py-3.5 px-4">专享优惠码</th>
-        <th class="py-3.5 px-4 text-center">直达操作</th>
+        <th class="py-3.5 px-4 text-center">操作</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-normal text-slate-700 dark:text-slate-300">
@@ -33,7 +34,14 @@ import { airportList } from '../data/airports';
           </td>
           <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white whitespace-nowrap">
             <div class="flex items-center gap-2">
-              <span>{item.name}</span>
+              <a
+                href={`${baseUrl}/airports/${item.id}/`}
+                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                title={`查看 ${item.name} 独立深度评测`}
+              >
+                <span>{item.name}</span>
+                <span class="text-[10px] text-blue-500 hover:underline font-normal">→</span>
+              </a>
               {item.badge && (
                 <span class="text-[10px] hidden md:inline-block px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
                   {item.badge.split('·')[1]?.trim() || item.badge}
@@ -66,17 +74,27 @@ import { airportList } from '../data/airports';
             </button>
           </td>
           <td class="py-3.5 px-4 text-center whitespace-nowrap">
-            <a
-              href={item.affUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-            >
-              <span>直达</span>
-              <svg width="12" height="12" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-              </svg>
-            </a>
+            <div class="inline-flex items-center gap-2">
+              <a
+                href={`${baseUrl}/airports/${item.id}/`}
+                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors"
+                title={`查看 ${item.name} 详情`}
+              >
+                <span>详情</span>
+              </a>
+              <a
+                href={item.affUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                title={`前往 ${item.name} 官网`}
+              >
+                <span>官网直达</span>
+                <svg width="12" height="12" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+            </div>
           </td>
         </tr>
       ))}

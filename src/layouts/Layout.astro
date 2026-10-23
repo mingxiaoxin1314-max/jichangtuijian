@@ -4,11 +4,15 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  keywords?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title = "2026 最新机场推荐与评测排行榜 | 优质高速稳定翻墙梯子测评",
-  description = "精选 2026 年度稳定高速机场推荐，涵盖 IEPL/IPLC 专线、VLESS、Hysteria2 协议。实测 4K/8K 秒开、低延迟游戏加速、ChatGPT/Claude 原生解锁，附最新专属优惠券码。"
+  description = "精选 2026 年度稳定高速机场推荐，涵盖 IEPL/IPLC 专线、VLESS、Hysteria2 协议。实测 4K/8K 秒开、低延迟游戏加速、ChatGPT/Claude 原生解锁，附最新专属优惠券码。",
+  keywords = "机场推荐, 梯子推荐, 2026机场评测, 稳定机场, 高速翻墙, IEPL专线, IPLC专线, VLESS, Hysteria2, 云界线, 大佬云, 优惠码",
+  ogType = "website"
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -26,15 +30,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="机场推荐, 梯子推荐, 2026机场评测, 稳定机场, 高速翻墙, IEPL专线, IPLC专线, VLESS, Hysteria2, 云界线, 大佬云, 优惠码" />
-    <link rel="canonical" href={canonicalURL} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={canonicalURL.href} />
 
     <!-- Open Graph / Social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="2026 机场推荐测评指南" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <!-- Theme Initialization Script to avoid FOUC -->
     <script is:inline>
@@ -83,10 +90,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         </div>
 
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-          <a href="#ranking" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Top 9 榜单</a>
-          <a href="#comparison" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">规格速查表</a>
-          <a href="#guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">选购避坑指南</a>
-          <a href="#faq" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">常见答疑</a>
+          <a href={`${baseUrl}/#ranking`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Top 9 榜单</a>
+          <a href={`${baseUrl}/#posts`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a>
+          <a href={`${baseUrl}/#comparison`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">规格速查表</a>
+          <a href={`${baseUrl}/#guide`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">选购指南</a>
+          <a href={`${baseUrl}/#faq`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">常见答疑</a>
         </nav>
 
         <div class="flex items-center gap-3">
@@ -148,10 +156,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <div>
             <h3 class="font-semibold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-3">快捷导航</h3>
             <ul class="space-y-2 text-xs">
-              <li><a href="#ranking" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Top 9 品牌评测</a></li>
-              <li><a href="#comparison" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">专线类型横向对比</a></li>
-              <li><a href="#guide" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">新手选购技巧</a></li>
-              <li><a href="#faq" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">常见问题 FAQ</a></li>
+              <li><a href={`${baseUrl}/#ranking`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Top 9 品牌评测</a></li>
+              <li><a href={`${baseUrl}/#posts`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a></li>
+              <li><a href={`${baseUrl}/#comparison`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">专线类型横向对比</a></li>
+              <li><a href={`${baseUrl}/#guide`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">新手选购技巧</a></li>
+              <li><a href={`${baseUrl}/#faq`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">常见问题 FAQ</a></li>
             </ul>
           </div>
           <div>
