@@ -1,0 +1,94 @@
+---
+import { airportList } from '../../data/airports';
+
+export function getStaticPaths() {
+  return airportList.map((item) => ({
+    params: { id: item.id },
+    props: { airport: item },
+  }));
+}
+
+const { airport } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>正在安全前往 {airport.name} 官网...</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta http-equiv="refresh" content={`0; url=${airport.targetUrl}`} />
+  <script define:vars={{ targetUrl: airport.targetUrl }}>
+    window.location.replace(targetUrl);
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0b0f19;
+      color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 1.25rem;
+      padding: 2.25rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 3.5px solid #1f2937;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #9ca3af;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #3b82f6;
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="spinner"></div>
+    <h1>正在前往 {airport.name} 官网...</h1>
+    <p>正在为您接入专属合规直达专线并同步应用立减优惠</p>
+    <a href={airport.targetUrl} rel="nofollow sponsored noopener noreferrer" class="btn">
+      未自动跳转？点击此处立即进入
+    </a>
+  </div>
+</body>
+</html>

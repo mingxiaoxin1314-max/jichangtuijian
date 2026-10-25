@@ -2,8 +2,10 @@ export interface AirportItem {
   rank: number;
   id: string;
   name: string;
-  // 外部官网推广链接的 Base64 密文（避免静态代码扫描）
+  // 外部官网推广链接的 Base64 密文（保留兼容）
   targetB64: string;
+  // 外部官网推广直链目标（仅供 301 重定向与跳转页使用）
+  targetUrl: string;
   couponCode: string;
   establishedYear: string;
   monthlyPrice: string;
@@ -22,6 +24,7 @@ export const airportList: AirportItem[] = [
     id: "yunjiexian",
     name: "云界线",
     targetB64: "aHR0cHM6Ly85NjI1bW9mYW4wMS55dW5qaWV4aWFuYWZmLmNvbS8jLz9jb2RlPU9PWWhTajBM",
+    targetUrl: "https://9625mofan01.yunjiexianaff.com/#/?code=OOYhSj0L",
     couponCode: "yjx888",
     establishedYear: "2024",
     monthlyPrice: "¥5.6 /月",
@@ -38,6 +41,7 @@ export const airportList: AirportItem[] = [
     id: "dalaoyun",
     name: "大佬云",
     targetB64: "aHR0cHM6Ly9tb2ZhbnZpcDAxLmRhbGFveXVuYWZmLmNvbS8jLz9jb2RlPVFUMnJxcDVW",
+    targetUrl: "https://mofanvip01.dalaoyunaff.com/#/?code=QT2rqp5V",
     couponCode: "dly888",
     establishedYear: "2024",
     monthlyPrice: "¥5.6 /月",
@@ -53,7 +57,8 @@ export const airportList: AirportItem[] = [
     rank: 3,
     id: "huanqiuti",
     name: "环球梯",
-    targetB64: "aHR0cHM6Ly9tb2ZhbnZpcDAxLmh1YW5xaXV0aWFmZi5jb20vIy8/Y29kZT1sN29MbWpWVQ==",
+    targetB64: "aHR0cHM6Ly9tb2ZhbnZpcDAxLmh1YW5qaXV0aWFmZi5jb20vIy8/Y29kZT1sN29MbWpWVQ==",
+    targetUrl: "https://mofanvip01.huanqiutiaff.com/#/?code=l7oLmjVU",
     couponCode: "HQ66",
     establishedYear: "2024",
     monthlyPrice: "¥5.6 /月",
@@ -70,6 +75,7 @@ export const airportList: AirportItem[] = [
     id: "shandianshu",
     name: "闪电鼠",
     targetB64: "aHR0cHM6Ly9tb2ZhbnZpcDAxLnNoYW5kaWFuc2h1YWZmLmNvbS8jLz9jb2RlPWEzR0FRQVhn",
+    targetUrl: "https://mofanvip01.shandianshuaff.com/#/?code=a3GAQAXg",
     couponCode: "sd88",
     establishedYear: "2024",
     monthlyPrice: "¥5.6 /月",
@@ -86,6 +92,7 @@ export const airportList: AirportItem[] = [
     id: "liulianyun",
     name: "榴莲云",
     targetB64: "aHR0cHM6Ly9tb2Zhbjg4LmxpdWxpYW55dW5hZmYuY29tLyMvP2NvZGU9RVRzUUJTdVI=",
+    targetUrl: "https://mofan88.liulianyunaff.com/#/?code=ETsQBSuR",
     couponCode: "ll88",
     establishedYear: "2024",
     monthlyPrice: "¥5.6 /月",
@@ -102,6 +109,7 @@ export const airportList: AirportItem[] = [
     id: "shenxing",
     name: "神行加速",
     targetB64: "aHR0cHM6Ly92aXBtb2ZhbjAxLnNoZW54aW5nYWZmLmNvbS8jLz9jb2RlPW5uNG9od25L",
+    targetUrl: "https://vipmofan01.shenxingaff.com/#/?code=nn4ohwnK",
     couponCode: "xs0077",
     establishedYear: "2024",
     monthlyPrice: "¥14 /月",
@@ -118,6 +126,7 @@ export const airportList: AirportItem[] = [
     id: "edgenova",
     name: "边缘节点",
     targetB64: "aHR0cHM6Ly93ZXAuZWRnZW5vdmFhZmYuY29tLyMvP2NvZGU9bnIyS2RsNjg=",
+    targetUrl: "https://wep.edgenovaaff.com/#/?code=nr2Kdl68",
     couponCode: "专属折扣",
     establishedYear: "2024",
     monthlyPrice: "¥15 /月",
@@ -134,6 +143,7 @@ export const airportList: AirportItem[] = [
     id: "kosing",
     name: "可信云",
     targetB64: "aHR0cHM6Ly9ldmVyZXR0NzYyMy5rb3NpbmdhZmYuY29tLyMvP2NvZGU9TUFiUFJtN0o=",
+    targetUrl: "https://everett7623.kosingaff.com/#/?code=MAbPRm7J",
     couponCode: "kxy80",
     establishedYear: "2024",
     monthlyPrice: "¥8 /月",
@@ -150,6 +160,7 @@ export const airportList: AirportItem[] = [
     id: "kuaili",
     name: "快狸",
     targetB64: "aHR0cHM6Ly9mYW54aWFvYmluLmt1YWlsaWFmZi5jb20vIy8/Y29kZT1NT0QzSmJnMg==",
+    targetUrl: "https://fanxiaobin.kuailiaff.com/#/?code=MOD3Jbg2",
     couponCode: "kl888",
     establishedYear: "2024",
     monthlyPrice: "¥12 /月",

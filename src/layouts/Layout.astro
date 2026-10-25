@@ -169,10 +169,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             </svg>
           </button>
 
-          <!-- Quick Top1 CTA Button -->
-          <button
-            type="button"
-            data-target="aHR0cHM6Ly85NjI1bW9mYW4wMS55dW5qaWV4aWFuYWZmLmNvbS8jLz9jb2RlPU9PWWhTajBM"
+          <!-- Quick Top1 CTA Link -->
+          <a
+            href={`${baseUrl}/go.html?id=yunjiexian`}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
             class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm shadow-blue-500/30 transition-all hover:scale-[1.02] cursor-pointer"
             title="直达 Top 1 云界线官网"
           >
@@ -180,7 +181,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             <svg width="14" height="14" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </header>

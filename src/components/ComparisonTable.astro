@@ -82,9 +82,10 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
               >
                 <span>详情</span>
               </a>
-              <button
-                type="button"
-                data-target={item.targetB64}
+              <a
+                href={`${baseUrl}/go.html?id=${item.id}`}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
                 class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors cursor-pointer"
                 title={`前往 ${item.name} 官网`}
               >
@@ -92,7 +93,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
                 <svg width="12" height="12" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
-              </button>
+              </a>
             </div>
           </td>
         </tr>
