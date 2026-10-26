@@ -4,13 +4,7 @@
 
 User-agent: *
 
-# 屏蔽 301 重定向与 AFF 跳转承接页，防止搜索引擎爬取与权重泄露
-Disallow: /go.html
-Disallow: /go/
-Disallow: /jichangtuijian/go.html
-Disallow: /jichangtuijian/go/
-
-# 允许搜索引擎索引正常内容页面
+# 允许搜索引擎索引抓取页面（跳转与承接页通过 noindex 标签自主控制索引，避免 Blocked by robots.txt 报错）
 Allow: /
 
 # 站点地图索引
