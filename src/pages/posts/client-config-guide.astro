@@ -1,20 +1,107 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Clash Verge Rev 与 Sing-box 客户端从零到精通配置指南",
+  "description": "2026 最新多平台代理客户端配置教程：手把手教你使用 Clash Verge Rev 与 Sing-box 导入订阅节点、启用 TUN 虚拟网卡模式、优化分流规则组并彻底杜绝 DNS 泄漏。",
+  "datePublished": "2026-01-25T08:00:00+08:00",
+  "dateModified": "2026-11-18T10:00:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "资深网络工程评测组"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "机场评测推荐指南",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mingxiaoxin1314-max.github.io/jichangtuijian/favicon.svg"
+    }
+  }
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "如何在 2026 年快速配置 Clash Verge Rev 并启用 TUN 虚拟网卡模式",
+  "description": "基于 Mihomo 内核的现代化代理客户端四步上手指南",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "第一步：下载安装官方开源发行版",
+      "text": "从官方 GitHub Releases 获取最新版的 Clash Verge Rev 并以管理员权限安装。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "第二步：导入机场专属订阅链接",
+      "text": "在机场后台复制 Clash 订阅链接，在软件『订阅』菜单中粘贴并保存更新。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "第三步：开启 TUN 模式与服务模式",
+      "text": "在软件『设置』中安装 Service Mode（服务模式），并启用 TUN Mode 接管整机所有网络流量。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "第四步：验证分流与 DNS 防泄漏测试",
+      "text": "访问 IP 纯净度检测网站，确认国内流量直连且无境外 DNS 泄漏。"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "开启 TUN 模式后电脑无法上网或网页一直转圈怎么办？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "常见原因有二：一是未以管理员权限安装 Service Mode（服务模式），导致虚拟网卡驱动未正确加载；二是系统原有的系统代理注册表未完全清理。请在软件中先关闭系统代理，安装服务模式后重启客户端即可恢复。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "为什么建议优先选用 Clash Verge Rev 而不是老版 Clash for Windows？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "老版 Clash for Windows (CFW) 及其底层 Premium 内核已在 2023 年底永久停止维护，存在未修复的安全漏洞且无法支持最新的 VLESS Reality、Hysteria 2 等新协议。Clash Verge Rev 由活跃开源社区基于开源 Mihomo (Clash.Meta) 内核维护，性能更强且原生支持暗黑主题与自动规则更新。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "什么是 Fake-IP 模式？它有什么优势？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fake-IP 模式会在本地拦截系统对域名的 DNS 查询，并瞬间返回一个 198.18.0.0/16 网段的虚假保留 IP，使客户端无需等待真实远端 DNS 解析即可发起连接，将实际解析交由远端海外专线节点执行。这不仅能将网页首包时间缩短 100~300ms，更能彻底根绝本地运营商的 DNS 劫持与污染。"
+      }
+    }
+  ]
+};
 ---
 
 <Layout
   title="Clash Verge Rev 与 Sing-box 客户端从零到精通配置指南 - 机场评测推荐"
   description="2026 最新多平台代理客户端配置教程：手把手教你使用 Clash Verge Rev 与 Sing-box 导入订阅节点、启用 TUN 虚拟网卡模式、优化分流规则组并彻底杜绝 DNS 泄漏。"
-  keywords="Clash Verge Rev教程, Sing-box配置, TUN模式, 订阅导入, Mihomo内核, 代理分流设置, 2026客户端指南"
+  keywords="Clash Verge Rev教程, Sing-box配置, TUN模式, 订阅导入, Mihomo内核, 代理分流设置, 2026客户端指南, DNS防泄漏, Fake-IP"
   ogType="article"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
       <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
       <span>/</span>
-      <a href={`${baseUrl}/#posts`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a>
+      <a href={`${baseUrl}/posts/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a>
       <span>/</span>
       <span class="text-slate-900 dark:text-white font-medium">客户端精通指南</span>
     </nav>
@@ -22,81 +109,228 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- Article Header -->
     <header class="mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold mb-4">
-        <span>🛠️ 实操图文攻略</span>
+        <span>🛠️ 实操图文攻略 · 2026 深度修订版</span>
       </div>
       <h1 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight">
         Clash Verge Rev 与 Sing-box 客户端从零到精通配置指南
       </h1>
       <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mt-4">
-        <span>更新日期：2026 年 10 月</span>
+        <span>最后更新：2026 年 11 月 18 日</span>
         <span>·</span>
-        <span>阅读时间：约 7 分钟</span>
+        <span>深度阅读：约 11 分钟</span>
         <span>·</span>
-        <span class="text-purple-700 dark:text-purple-400 font-medium">✓ 全平台兼容实操</span>
+        <span class="text-purple-700 dark:text-purple-400 font-medium">✓ 全平台通用实操 · 杜绝 DNS 泄漏</span>
       </div>
     </header>
+
+    <!-- Quick Table of Contents -->
+    <div class="mb-8 p-5 rounded-2xl bg-slate-100 dark:bg-[#141b2d] border border-slate-200 dark:border-slate-800 text-xs sm:text-sm">
+      <div class="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+        <span>📑 本文内容导航目录</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 dark:text-slate-400">
+        <a href="#section-1" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">一、 2026 主流开源代理客户端选型矩阵</a>
+        <a href="#section-2" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">二、 Clash Verge Rev 四步极速实战指南</a>
+        <a href="#section-3" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">三、 启用 TUN 虚拟网卡接管整机流量</a>
+        <a href="#section-4" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">四、 终结 DNS 污染与 Fake-IP 高级配置模版</a>
+        <a href="#section-5" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">五、 常见排错与高频疑难解答（FAQ）</a>
+      </div>
+    </div>
 
     <!-- Main Content -->
     <article class="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300 space-y-6">
       <p>
-        有了优质的专线机场，还需搭配现代化的代理客户端才能完全释放其性能。传统的 Clash Premium 早已停止维护，在 2026 年，基于 <strong>Mihomo (Clash.Meta)</strong> 内核开发的 <strong>Clash Verge Rev</strong> 以及跨平台的 <strong>Sing-box</strong> 是当前最推荐的主力工具。
+        即便购买了延迟极低的高品质内网专线机场，如果本地客户端选型落后或配置不当，依然会遇到“网页打不开、系统命令行不走代理、游戏 UDP 无法连接、DNS 泄漏导致 IP 暴露”等各种糟心问题。
+      </p>
+      <p>
+        传统的 Clash Premium 与老版 Clash for Windows 早已于数年前停止维护。在 2026 年，基于 <strong>Mihomo (原 Clash.Meta)</strong> 内核研发的 <strong>Clash Verge Rev</strong>，以及新一代跨平台核心 <strong>Sing-box</strong>，已成为业界公认的最佳主力配置。
       </p>
 
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">一、 客户端选择与下载</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 not-prose">
-        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
-          <div class="font-bold text-base text-slate-900 dark:text-white mb-2">Clash Verge Rev (Windows / macOS)</div>
-          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-            界面极度现代化、操作傻瓜直观，内置 Mihomo 完整内核，一键开启 TUN 模式，适合 95% 的桌面电脑用户。
-          </p>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">新手至进阶推荐</span>
-        </div>
-        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
-          <div class="font-bold text-base text-slate-900 dark:text-white mb-2">Sing-box (全平台 / Android / iOS)</div>
-          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-            由通用通用通用底层重构的通用通用协议核心，内存占用极低（通常不到 30MB），对 Hysteria2、VLESS 原生支持性能最强。
-          </p>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">性能发烧友推荐</span>
-        </div>
+      <h2 id="section-1" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        一、 2026 主流开源代理客户端选型矩阵
+      </h2>
+      <p>
+        不同操作系统平台有其最契合的客户端工具，以下为全平台推荐选型表：
+      </p>
+
+      <div class="overflow-x-auto not-prose rounded-xl border border-slate-200 dark:border-slate-800 my-6">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold">
+            <tr>
+              <th class="p-3">平台分类</th>
+              <th class="p-3">首选客户端推荐</th>
+              <th class="p-3">备选推荐</th>
+              <th class="p-3">底层内核</th>
+              <th class="p-3">核心特点与优势</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-400">
+            <tr class="hover:bg-slate-50 dark:hover:bg-[#161f36] transition-colors">
+              <td class="p-3 font-semibold text-slate-900 dark:text-white">Windows</td>
+              <td class="p-3 font-bold text-blue-600 dark:text-blue-400">Clash Verge Rev</td>
+              <td class="p-3">Sing-box / Flclash</td>
+              <td class="p-3">Mihomo (Alpha)</td>
+              <td class="p-3">极度现代化 GUI、内置 TUN 驱动、一键切换内核</td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-[#161f36] transition-colors">
+              <td class="p-3 font-semibold text-slate-900 dark:text-white">macOS</td>
+              <td class="p-3 font-bold text-blue-600 dark:text-blue-400">Clash Verge Rev</td>
+              <td class="p-3">Surge / Sing-box</td>
+              <td class="p-3">Mihomo</td>
+              <td class="p-3">完美适配 Apple Silicon，原生深色模式，内存占用低</td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-[#161f36] transition-colors">
+              <td class="p-3 font-semibold text-slate-900 dark:text-white">Android</td>
+              <td class="p-3 font-bold text-emerald-600 dark:text-emerald-400">Clash Meta for Android</td>
+              <td class="p-3">NekoBox / Sing-box</td>
+              <td class="p-3">Mihomo / Sing-box</td>
+              <td class="p-3">分应用代理精准、耗电控制极佳、支持最新协议</td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-[#161f36] transition-colors">
+              <td class="p-3 font-semibold text-slate-900 dark:text-white">iOS / iPadOS</td>
+              <td class="p-3 font-bold text-purple-600 dark:text-purple-400">Shadowrocket (小火箭)</td>
+              <td class="p-3">Loon / Quantumult X / Surge</td>
+              <td class="p-3">自研 / Sing-box</td>
+              <td class="p-3">操作极简、支持扫描二维码导入、长连接通知保活</td>
+            </tr>
+            <tr class="hover:bg-slate-50 dark:hover:bg-[#161f36] transition-colors">
+              <td class="p-3 font-semibold text-slate-900 dark:text-white">Linux</td>
+              <td class="p-3 font-bold text-slate-900 dark:text-white">Sing-box / Mihomo Core</td>
+              <td class="p-3">Clash Verge Rev (AppImage)</td>
+              <td class="p-3">原生二进制</td>
+              <td class="p-3">Systemd 守护进程化、极低系统资源开销</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">二、 Clash Verge Rev 订阅导入四步法</h2>
+      <h2 id="section-2" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        二、 Clash Verge Rev 四步极速实战指南
+      </h2>
+      <p>
+        以下以桌面端（Windows / macOS）主流的 <strong>Clash Verge Rev</strong> 为例，手把手演示标准配置流程：
+      </p>
+
       <ol class="list-decimal pl-5 space-y-3">
-        <li><strong>复制机场订阅链接：</strong> 登录您的机场后台（如 <a href={`${baseUrl}/go.html?id=yunjiexian`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">云界线</a> 或 <a href={`${baseUrl}/go.html?id=dalaoyun`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">大佬云</a>），找到“一键导入订阅”或直接复制 Clash 订阅链接。</li>
-        <li><strong>导入配置文件：</strong> 打开 Clash Verge Rev，点击左侧菜单的 <strong>「订阅」 (Profiles)</strong>，将链接粘贴至顶部输入框，点击 <strong>「导入」 (Import)</strong>。</li>
-        <li><strong>更新与选中：</strong> 待配置下载完成后，右键点击该订阅卡片选择“设置为活动配置”，配置名称边框将亮起。</li>
-        <li><strong>开启系统代理：</strong> 点击主界面左上角或系统托盘图标，开启 <strong>「系统代理」 (System Proxy)</strong> 开关。</li>
+        <li>
+          <strong>下载安装正版客户端：</strong>
+          建议直接前往其官方开源仓库下载安装包（Windows 建议下载 <code>.exe</code> 带有 x64 安装包；macOS 依据处理器选择对应 Apple Silicon 或 Intel 芯片的 <code>.dmg</code>）。安装时请务必勾选允许网络访问权限。
+        </li>
+        <li>
+          <strong>获取并导入订阅链接：</strong>
+          登录您的机场用户后台（例如综合评测第一的 <a href={`${baseUrl}/go.html?id=yunjiexian`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">Top 1 云界线</a> 或 <a href={`${baseUrl}/go.html?id=dalaoyun`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">Top 2 大佬云</a>），在“便捷导入”区点击“复制 Clash 订阅链接”。回到 Clash Verge Rev，进入“订阅（Profiles）”页面，将链接粘贴至输入框并点击“保存（Save）”。
+        </li>
+        <li>
+          <strong>选择节点与分流代理组：</strong>
+          导入完成后点击配置文件激活。进入“代理（Proxy）”标签页，建议策略组选择“规则模式（Rule）”。在“节点选择”中，优先挑选带有 <code>IEPL 专线</code> 标签的香港、日本或新加坡低延迟节点。
+        </li>
+        <li>
+          <strong>启动代理与验证：</strong>
+          在左下角或系统托盘菜单中勾选“系统代理（System Proxy）”，打开浏览器访问海外网站，观察左下角实时上下行流量速率。
+        </li>
       </ol>
 
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">三、 关键进阶：开启 TUN 虚拟网卡模式</h2>
+      <h2 id="section-3" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        三、 启用 TUN 虚拟网卡接管整机流量
+      </h2>
       <p>
-        很多新手发现：浏览器能正常翻墙，但运行 <code>git clone</code>、终端命令行、电报客户端（Telegram）或者 Steam/Epic 下载游戏时却完全不走代理。这是因为部分应用绕过了 Windows/macOS 的普通系统 HTTP 代理。
+        <strong>什么是系统代理的局限性？</strong> 常规的“系统代理”仅在 HTTP/HTTPS 应用层生效（如 Chrome、Edge 浏览器），对于不遵循系统代理的环境（如 Windows CMD 命令行、PowerShell、Git 拉取、Python 脚本以及各类联机客户端），数据流量依然会直接走本地直连，导致频繁报错。
       </p>
-      <div class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 not-prose my-4">
-        <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-2">💡 如何开启 TUN 模式：</h4>
-        <ol class="text-xs space-y-2 text-slate-700 dark:text-slate-300 list-decimal pl-4">
-          <li>打开 Clash Verge Rev 的 <strong>「设置」 (Settings)</strong> 页面。</li>
-          <li>找到 <strong>「TUN 模式」 (Tun Mode)</strong> 开关。首次开启时系统会弹出管理员权限提示，点击“允许”以安装虚拟网卡驱动。</li>
-          <li>开启后，系统所有软件（包含没有代理设置项的游戏、终端和开发软件）的网络流量都将被接管，实现真正的全局透明智能分流。</li>
+      <p>
+        <strong>TUN 模式（虚拟网卡模式）的终极解法：</strong> TUN 模式在系统底层虚拟出一块虚拟网络适配器，强制拦截网络层（L3 IP 层）的所有 TCP/UDP 数据包，实现整机 100% 无死角全局接管。
+      </p>
+
+      <div class="p-5 rounded-2xl border border-purple-500/30 bg-purple-50/10 dark:bg-purple-950/20 not-prose my-4">
+        <div class="font-bold text-purple-700 dark:text-purple-300 text-sm mb-2">⚡ 开启 TUN 模式标准操作三步走：</div>
+        <ol class="list-decimal pl-5 space-y-1 text-xs text-slate-700 dark:text-slate-300">
+          <li>以<strong>管理员身份</strong>运行 Clash Verge Rev 客户端；</li>
+          <li>进入『设置（Settings）』页面，找到『服务模式（Service Mode）』项，点击右侧的『安装（Install）』，待图标变为绿色勾选状态；</li>
+          <li>将『TUN 模式（TUN Mode）』开关切换为开启，此时可以关闭传统的『系统代理』开关，整机所有软件即已受到透明虚拟网卡保护。</li>
         </ol>
       </div>
 
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white pt-4">四、 彻底杜绝 DNS 污染与泄漏</h2>
+      <h2 id="section-4" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        四、 终结 DNS 污染与 Fake-IP 高级配置模版
+      </h2>
       <p>
-        在「设置」->「DNS 设置」中，建议确保启用了 <strong>Fake-IP</strong> 模式，并配置国内 DNS（如 223.5.5.5）解析国内域名，远程加密 DNS（如 1.1.1.1、8.8.8.8）通过代理通道解析境外域名，杜绝运营商 DNS 劫持与访问历史泄漏。
+        本地运营商的 DNS 劫持是导致访问异常的元凶之一。通过采用 <strong>Fake-IP 模式</strong> 配合安全的 DoH（DNS over HTTPS）解析，可以彻底杜绝运营商污染。以下为 Clash Verge Rev 配置文件中推荐优化的 DNS 核心片段：
       </p>
 
-      <!-- Bottom Action -->
-      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white not-prose flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="not-prose my-4">
+        <pre class="p-4 rounded-xl bg-slate-900 text-slate-200 text-xs font-mono overflow-x-auto border border-slate-800 leading-normal">
+<code>dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+  nameserver:
+    - 223.5.5.5           # 阿里公共安全 DNS (国内直连)
+    - 119.29.29.29        # 腾讯 DNSPod (国内直连)
+  fallback:
+    - https://1.1.1.1/dns-query     # Cloudflare 安全 DoH
+    - https://8.8.8.8/dns-query     # Google 安全 DoH
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4</code></pre>
+      </div>
+
+      <h2 id="section-5" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        五、 常见排错与高频疑难解答（FAQ）
+      </h2>
+      <div class="space-y-4 my-6 not-prose">
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Q1：开启 TUN 模式后电脑彻底断网，关掉软件也上不了网怎么办？</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            这是因为非正常退出导致 Windows 系统的代理注册表未被释放。解决步骤：在 Windows 搜索框输入“代理设置”，检查“使用代理服务器”开关是否被强行开启，手动将其关闭；或者在 Clash Verge Rev 中点击右上角菜单选择“重置系统网络状态”即可瞬间恢复。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Q2：为什么国内微信、淘宝有时候会被判定在国外？</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            请确认客户端处于<strong>『规则模式（Rule）』</strong>而非『全局模式（Global）』。在规则模式下，基于 GeoIP 数据库，所有境内 IP 和域名（如 <code>.cn</code>、微信、阿里服务）均直接走本地宽带直连，不会消耗机场流量，也不会触发异地登录提示。
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Recommended Posts Grid -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 not-prose">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4">📚 延伸技术专栏与实操进阶</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a href={`${baseUrl}/posts/2026-beginner-guide/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">选购避坑必读</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">2026 新手科学选购网络专线避坑指南</div>
+          </a>
+          <a href={`${baseUrl}/posts/iepl-vs-iplc-guide/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">网络底层科普</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">IEPL 与 IPLC 内网专线技术深度科普</div>
+          </a>
+          <a href={`${baseUrl}/posts/speedtest-methodology/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">压测方法论</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">晚高峰网络测速与性能压力测试方法论</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom CTA Card -->
+      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white not-prose flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <div class="font-bold text-base">需要兼容最新客户端的高速专线？</div>
-          <div class="text-xs text-white/80 mt-1">榜单中推荐的服务商均支持一键生成 Clash Verge Rev / Sing-box 订阅。</div>
+          <div class="font-bold text-base">需要稳定高速、兼容 Clash Verge 与 Sing-box 的优质机场？</div>
+          <div class="text-xs text-white/80 mt-1">查看 2026 年度 9 大专线服务商测速数据与配置指南。</div>
         </div>
         <a
           href={`${baseUrl}/#ranking`}
-          class="px-5 py-2.5 rounded-xl bg-white text-purple-700 hover:bg-slate-100 font-bold text-xs transition-colors shrink-0 shadow"
+          class="px-5 py-2.5 rounded-xl bg-white text-blue-600 hover:bg-slate-100 font-bold text-xs transition-colors shrink-0 shadow"
         >
-          查看推荐机场榜单 →
+          查看 Top 9 专线榜单 →
         </a>
       </div>
     </article>

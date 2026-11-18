@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { postList, postCategories } from '../../data/posts';
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "网络工程技术专栏与避坑科普大全 - 机场评测推荐",
+  "description": "系统化跨境网络加速、IEPL/IPLC 物理专线架构、代理客户端配置及晚高峰性能压测的权威技术专栏库。",
+  "url": `https://mingxiaoxin1314-max.github.io/jichangtuijian/posts/`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": postList.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `https://mingxiaoxin1314-max.github.io/jichangtuijian/posts/${post.slug}/`,
+      "name": post.title
+    }))
+  }
+};
+---
+
+<Layout
+  title="网络工程技术专栏与避坑科普大全 - 机场评测推荐"
+  description="系统化跨境网络加速、IEPL/IPLC 物理专线架构、代理客户端配置及晚高峰性能压测的权威技术专栏库。全方位拆解网络选型、避开虚标跑路陷阱。"
+  keywords="网络技术专栏, 机场选购指南, 专线技术科普, Clash配置教程, Sing-box教程, 晚高峰压测, 梯子避坑"
+  ogType="website"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+  </Fragment>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-8">
+      <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-medium">技术专栏与知识库</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-4">
+        <span>📚 KNOWLEDGE BASE & GUIDES</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white leading-tight">
+        网络工程精选专栏与实战知识库
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-4 leading-relaxed">
+        由专业网络工程师与性能极客持续维护，拆解物理专线拓扑、流量整形与 QoS 特征、各平台代理客户端最优配置及抗晚高峰压测基准。
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs (客户端交互式筛选) -->
+    <div class="mb-10 flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-5" id="category-tabs">
+      {postCategories.map((cat, idx) => (
+        <button
+          type="button"
+          data-category={cat.id}
+          class={`filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            idx === 0
+              ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/30'
+              : 'bg-white dark:bg-[#111625] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800'
+          }`}
+        >
+          {cat.name}
+        </button>
+      ))}
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="posts-grid">
+      {postList.map((post) => (
+        <article
+          data-category={post.category}
+          class="post-card group p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 hover:border-blue-500/60 dark:hover:border-blue-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
+                {post.categoryName}
+              </span>
+              <div class="flex items-center gap-2 text-xs text-slate-400 font-mono">
+                <span>{post.updatedAt}</span>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
+            </div>
+
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+              <a href={`${baseUrl}/posts/${post.slug}/`}>
+                {post.title}
+              </a>
+            </h2>
+
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+              {post.desc}
+            </p>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400">
+            <span>查阅深度全文与实操</span>
+            <span class="group-hover:translate-x-1.5 transition-transform text-sm">→</span>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Bottom Guidance & Conversion Section -->
+    <div class="mt-16 p-8 rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div class="max-w-xl">
+        <h3 class="text-xl sm:text-2xl font-black">想了解经过实测检验的 2026 专线梯子排行榜？</h3>
+        <p class="text-xs sm:text-sm text-white/80 mt-2 leading-relaxed">
+          阅读完技术科普后，前往主页查看通过 32 线程晚高峰压测的 Top 9 高速稳定专线服务商及官方优惠折扣码。
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <a
+          href={`${baseUrl}/#benchmark`}
+          class="px-6 py-3 rounded-xl bg-white text-blue-600 hover:bg-slate-100 font-bold text-xs sm:text-sm transition-all shadow-md"
+        >
+          查看实测基准榜 →
+        </a>
+        <a
+          href={`${baseUrl}/`}
+          class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition-all border border-white/20"
+        >
+          返回博客首页
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-side Interactive Filter Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.filter-tab');
+      const cards = document.querySelectorAll('.post-card');
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const targetCategory = tab.getAttribute('data-category');
+
+          // 更新激活样式
+          tabs.forEach((t) => {
+            t.classList.remove('bg-blue-600', 'text-white', 'shadow-sm', 'shadow-blue-500/30');
+            t.classList.add('bg-white', 'dark:bg-[#111625]', 'text-slate-600', 'dark:text-slate-400', 'border', 'border-slate-200', 'dark:border-slate-800');
+          });
+          tab.classList.remove('bg-white', 'dark:bg-[#111625]', 'text-slate-600', 'dark:text-slate-400', 'border', 'border-slate-200', 'dark:border-slate-800');
+          tab.classList.add('bg-blue-600', 'text-white', 'shadow-sm', 'shadow-blue-500/30');
+
+          // 过滤文章卡片
+          cards.forEach((card) => {
+            const cardCat = card.getAttribute('data-category');
+            if (targetCategory === 'all' || cardCat === targetCategory) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</Layout>
+

@@ -4,44 +4,12 @@ import AirportCard from '../components/AirportCard.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 import FAQ from '../components/FAQ.astro';
 import { airportList } from '../data/airports';
+import { postList } from '../data/posts';
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// 4 篇精选核心技术指南
-const featuredPosts = [
-  {
-    title: "2026 新手科学选购网络专线避坑指南：告别虚标与年付陷阱",
-    desc: "新手必读基准：深度拆解低价虚标套路、跑路小作坊特征，为什么坚持月付是最佳自保手段，以及如何制定合理的网络预算。",
-    href: `${baseUrl}/posts/2026-beginner-guide/`,
-    tag: "选型避坑",
-    icon: "01",
-    readTime: "6 分钟"
-  },
-  {
-    title: "IEPL 与 IPLC 内网专线技术深度科普：为什么晚高峰从不拥堵？",
-    desc: "深入底层网络架构：公网直连、BGP 隧道与点对点内网物理专线差异，从计算机网络与电信 QoS 流量整形揭秘抗抖动真相。",
-    href: `${baseUrl}/posts/iepl-vs-iplc-guide/`,
-    tag: "网络底层",
-    icon: "02",
-    readTime: "8 分钟"
-  },
-  {
-    title: "Clash Verge Rev 与 Sing-box 客户端从零到精通配置指南",
-    desc: "现代代理客户端深度实操：通用订阅一键导入、Mihomo 内核切换、开启全局 TUN 虚拟网卡与杜绝 DNS 泄漏全套策略。",
-    href: `${baseUrl}/posts/client-config-guide/`,
-    tag: "实操配置",
-    icon: "03",
-    readTime: "7 分钟"
-  },
-  {
-    title: "晚高峰网络测速与性能压力测试方法论：丢包率与抖动为什么比带宽更重要？",
-    desc: "专业工程师压测模型：32 线程持续并发测试、Jitter 抖动方差计算公式，以及判断原生双 ISP 纯净住宅 IP 的全套检验方案。",
-    href: `${baseUrl}/posts/speedtest-methodology/`,
-    tag: "基准测试",
-    icon: "04",
-    readTime: "9 分钟"
-  }
-];
+// 首页精选最新 4 篇技术专栏
+const latestPosts = postList.slice(0, 4);
 
 // 开源客户端工具快速索引
 const clientTools = [
@@ -131,21 +99,31 @@ const schemaItemList = {
           网络工程精选专栏与避坑科普
         </h2>
       </div>
-      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md">
-        由网络性能爱好者整理，拆解专线架构拓扑、流量整形特征与协议客户端的最佳工程实践。
-      </p>
+      <div class="flex items-center gap-4">
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md hidden lg:block">
+          由网络性能爱好者整理，拆解专线架构拓扑、流量整形特征与协议客户端的最佳工程实践。
+        </p>
+        <a
+          href={`${baseUrl}/posts/`}
+          class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-blue-600 dark:text-blue-400 font-bold text-xs transition-colors border border-slate-200 dark:border-slate-700"
+          title="查看全部技术文章"
+        >
+          <span>浏览全部专栏 ({postList.length} 篇)</span>
+          <span>→</span>
+        </a>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {featuredPosts.map((post) => (
+      {latestPosts.map((post) => (
         <a
-          href={post.href}
+          href={`${baseUrl}/posts/${post.slug}/`}
           class="group p-6 rounded-3xl bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 hover:border-blue-500/60 dark:hover:border-blue-500/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
-                {post.tag}
+                {post.categoryName}
               </span>
               <span class="text-xs text-slate-400 font-mono">
                 {post.readTime}
@@ -165,6 +143,17 @@ const schemaItemList = {
           </div>
         </a>
       ))}
+    </div>
+
+    <!-- 专栏更多引导 -->
+    <div class="mt-8 text-center">
+      <a
+        href={`${baseUrl}/posts/`}
+        class="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
+      >
+        <span>查阅全部专栏分类（选型避坑、网络底层、实操教程、基准测速）</span>
+        <span>→</span>
+      </a>
     </div>
   </section>
 
