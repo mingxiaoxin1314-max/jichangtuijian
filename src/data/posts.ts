@@ -21,6 +21,30 @@ export const postCategories = [
 
 export const postList: PostItem[] = [
   {
+    id: "chatgpt-ai-network-guide",
+    slug: "chatgpt-ai-network-guide",
+    title: "2026 ChatGPT 与 Claude 专用网络专线选型指南：告别封号与 Access Denied 终极方案",
+    desc: "AI 生产力必读：拆解 OpenAI 与 Claude 核心风控机制，详解原生双 ISP 住宅 IP 与 WebSocket 零丢包专线选型策略。",
+    category: "avoid-pitfalls",
+    categoryName: "选型避坑",
+    categoryColor: "blue",
+    updatedAt: "2026-11-24",
+    readTime: "12 分钟",
+    featured: true
+  },
+  {
+    id: "shadowrocket-mobile-guide",
+    slug: "shadowrocket-mobile-guide",
+    title: "Shadowrocket（小火箭）与 Android 移动端配置全攻略：从节点导入到规则分流",
+    desc: "移动端全能实操：iOS 小火箭正版获取、一键导入订阅，配置规则智能分流防国内断网，以及安卓端耗电与后台保活优化。",
+    category: "client-guide",
+    categoryName: "实操配置",
+    categoryColor: "purple",
+    updatedAt: "2026-11-24",
+    readTime: "11 分钟",
+    featured: true
+  },
+  {
     id: "2026-beginner-guide",
     slug: "2026-beginner-guide",
     title: "2026 新手科学选购网络专线避坑指南：告别虚标与年付陷阱",
@@ -69,4 +93,3 @@ export const postList: PostItem[] = [
     featured: true
   }
 ];
-

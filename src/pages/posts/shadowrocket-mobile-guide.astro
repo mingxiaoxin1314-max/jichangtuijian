@@ -1,0 +1,293 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Shadowrocket（小火箭）与 Android 移动端配置全攻略：从节点导入到规则分流",
+  "description": "2026 最新手机移动端科学上网完全手册：详解 iOS 平台 Shadowrocket（小火箭）美区下载、一键订阅导入、规则分流防国内断网，以及 Android 端 Clash Meta 耗电优化与后台长效保活全流程。",
+  "datePublished": "2026-11-24T08:00:00+08:00",
+  "dateModified": "2026-11-24T12:00:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "资深网络工程评测组"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "机场评测推荐指南",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mingxiaoxin1314-max.github.io/jichangtuijian/favicon.svg"
+    }
+  }
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "如何使用 Shadowrocket（小火箭）在 iPhone 上三步完成专线节点配置",
+  "description": "iOS 移动端科学上网最简实操配置 SOP",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "第一步：获取正版 Shadowrocket 客户端",
+      "text": "使用海外（如美区、港区）Apple ID 登录 App Store，认准开发者为 Shadow Launch Technology 的正版应用完成安装。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "第二步：一键导入机场专线订阅",
+      "text": "登录机场后台，点击『一键导入 Shadowrocket 订阅』或复制专属订阅链接，在小火箭首页右上角点击加号直接保存拉取节点。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "第三步：选择配置路由与全局规则模式",
+      "text": "在小火箭首页将全局路由设置为『配置（Config）』模式，选择延迟最低的专线节点，滑动开启顶端开关即可实现境内外智能分流。"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "为什么开启小火箭后，微信、外卖或者淘宝无法正常加载或提示异地登录？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "这通常是因为全局路由被误设置成了『代理（Proxy）』全局模式。请在小火箭首页将路由模式切换为『配置（Config）』。在此模式下，系统内置的规则集会自动判定：国内常见域名和中国大陆 IP 均走直连通道，既不消耗代理流量，也完全不影响国内日常 App 的使用与定位。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "小火箭在后台运行几分钟后自动断开连接，必须重新打开 App 才能上网怎么办？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iOS 系统在低电量模式或内存吃紧时会杀死后台进程。请检查：1. 前往系统『设置』-『电池』，确保未处于低电量模式；2. 前往『通用』-『后台 App 刷新』，确认 Shadowrocket 的刷新权限处于开启状态；3. 检查机场订阅节点是否频繁超时断流，建议使用高 SLA 的 IEPL 物理专线。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Android（安卓）手机目前最推荐使用哪款客户端工具？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "在 2026 年，安卓端最推荐基于开源 Mihomo 内核的 Clash Meta for Android (CMFA) 以及新一代跨平台核心 NekoBox。它们原生支持最新的 VLESS Reality 与 Hysteria 2 协议，并具备分应用代理功能，耗电控制显著优于老旧的 v2rayNG。"
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Shadowrocket（小火箭）与 Android 移动端配置全攻略：从节点导入到规则分流 - 机场评测推荐"
+  description="2026 最新手机移动端科学上网完全手册：详解 iOS 平台 Shadowrocket（小火箭）美区下载、一键订阅导入、规则分流防国内断网，以及 Android 端 Clash Meta 耗电优化与后台长效保活全流程。"
+  keywords="Shadowrocket小火箭教程, 小火箭配置教程2026, iOS科学上网设置, 安卓梯子客户端推荐, 小火箭分流规则, 小火箭后台保活耗电, 手机翻墙配置"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+      <a href={`${baseUrl}/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+      <span>/</span>
+      <a href={`${baseUrl}/posts/`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技术专栏</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-medium">移动端配置指南</span>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold mb-4">
+        <span>📱 移动端实操宝典 · 2026 深度修订版</span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+        Shadowrocket（小火箭）与 Android 移动端配置全攻略：从节点导入到规则分流
+      </h1>
+      <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mt-4">
+        <span>最后更新：2026 年 11 月 24 日</span>
+        <span>·</span>
+        <span>深度阅读：约 11 分钟</span>
+        <span>·</span>
+        <span class="text-purple-700 dark:text-purple-400 font-medium">✓ iOS / Android 全覆盖 · 国内智能直连免翻</span>
+      </div>
+    </header>
+
+    <!-- Quick Table of Contents -->
+    <div class="mb-8 p-5 rounded-2xl bg-slate-100 dark:bg-[#141b2d] border border-slate-200 dark:border-slate-800 text-xs sm:text-sm">
+      <div class="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+        <span>📑 本文内容导航目录</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 dark:text-slate-400">
+        <a href="#section-1" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">一、 iOS 平台：Shadowrocket（小火箭）从零上手与正版鉴别</a>
+        <a href="#section-2" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">二、 极速实操：小火箭订阅一键拉取与规则路由最佳配置</a>
+        <a href="#section-3" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">三、 Android 移动端主流客户端选型（Clash Meta / NekoBox）</a>
+        <a href="#section-4" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">四、 解决手机端后台断连、发热耗电与 5G 切换卡顿</a>
+        <a href="#section-5" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">五、 移动端用户高频问答（FAQ）</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <article class="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300 space-y-6">
+      <p>
+        随着移动办公、海外社交（Twitter/Instagram/Telegram）以及手机端 ChatGPT App 的普及，超过 65% 的科学上网行为发生在智能手机端。相比电脑桌面，手机移动端面临着<strong>电池续航敏感、Wi-Fi 与 5G 频繁切换、系统强力后台杀进程</strong>等复杂的移动网络环境。
+      </p>
+      <p>
+        本文将手把手详解 iOS 平台最经典的 <strong>Shadowrocket（小火箭）</strong> 与 Android 端开源工具的最优实战配置。
+      </p>
+
+      <h2 id="section-1" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        一、 iOS 平台：Shadowrocket（小火箭）从零上手与正版鉴别
+      </h2>
+      <p>
+        因为众所周知的原因，中国大陆区 App Store 并未上架此类代理工具。在 iOS 设备上使用小火箭，需注意以下核心准则：
+      </p>
+
+      <div class="p-5 rounded-2xl border border-amber-500/30 bg-amber-50/10 dark:bg-amber-950/20 not-prose my-4">
+        <div class="font-bold text-amber-800 dark:text-amber-300 text-sm mb-2">⚠️ iOS 账号安全与防骗须知：</div>
+        <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+          <li><strong>仅在 App Store 登录：</strong> 获取海外 Apple ID（如美区）后，<strong>绝不要在 iPhone 的系统『设置』主界面登录 iCloud</strong>（防止被恶意设备锁机），只需打开 App Store 点击右上角头像退出当前账号并登录海外 ID 即可；</li>
+          <li><strong>认准正版开发者：</strong> 正版 Shadowrocket 开发者显示为 <strong>Shadow Launch Technology Group</strong>，图标为浅蓝底白色斜向小飞机。应用商店内充斥着大量山寨假冒、带有内置恶意广告或收费套壳的仿冒 App，请务必仔细辨识；</li>
+          <li><strong>下载后切回国区：</strong> 小火箭购买下载完毕后，即可在 App Store 退出海外 ID 并重新登录自己的国区账号，完全不影响后续的使用与版本更新。</li>
+        </ul>
+      </div>
+
+      <h2 id="section-2" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        二、 极速实操：小火箭订阅一键拉取与规则路由最佳配置
+      </h2>
+      <p>
+        安装完成后，只需三步即可完成自动化配置：
+      </p>
+
+      <ol class="list-decimal pl-5 space-y-4">
+        <li>
+          <strong>一键导入节点列表：</strong>
+          登录您的机场后台（如我们综合测速排名第一的 <a href={`${baseUrl}/go.html?id=yunjiexian`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">Top 1 云界线</a> 或 <a href={`${baseUrl}/go.html?id=dalaoyun`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">Top 2 大佬云</a>），找到“一键导入”，点击“一键导入 Shadowrocket”。若浏览器未唤起 App，可点击“复制小火箭订阅链接”，打开小火箭，右上角点击加号 <code>+</code>，类型选择 <code>Subscribe</code>，粘贴至 URL 并点击右上角完成。
+        </li>
+        <li>
+          <strong>开启自动节点更新与测速：</strong>
+          进入小火箭『设置』-『订阅』，勾选<strong>『打开时更新』</strong>与<strong>『自动后台更新』</strong>，确保每天都能获取到服务商最新的 BGP 灾备节点与 IP。返回首页，点击节点列表右侧的『连通性测试』，挑选延迟低于 50ms 的 IEPL 专线节点。
+        </li>
+        <li>
+          <strong>核心关键：全局路由必须选择『配置』模式！</strong>
+          在首页找到『全局路由』选项：
+          <ul class="list-disc pl-5 mt-2 space-y-1 text-xs">
+            <li><strong>配置（Config）——【强烈推荐】：</strong> 启用智能分流规则。国内所有网站、App、视频走本地直连宽带；国外受限资源走海外专线；</li>
+            <li><strong>代理（Proxy）：</strong> 全局所有流量包括微信都会走境外节点，极度消耗流量且容易导致微信被提示异地登录，非排错请勿开启；</li>
+            <li><strong>直连（Direct）：</strong> 完全不走节点，相当于直接连本地 Wi-Fi。</li>
+          </ul>
+        </li>
+        <li>
+          <strong>滑动开启连接：</strong>
+          滑动首页顶端开关，首次连接时 iOS 系统会弹出“添加 VPN 配置”窗口，轻触“允许（Allow）”并输入手机解锁密码即可开始畅联。
+        </li>
+      </ol>
+
+      <h2 id="section-3" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        三、 Android 移动端主流客户端选型（Clash Meta / NekoBox）
+      </h2>
+      <p>
+        在 Android 开放生态中，虽然工具繁多，但针对 2026 年现代协议（如 VLESS + Reality 与 Hysteria 2），最推荐以下两款开源神器：
+      </p>
+
+      <div class="space-y-4 my-6 not-prose">
+        <div class="p-5 rounded-2xl border border-blue-500/30 bg-blue-50/10 dark:bg-blue-950/20">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-blue-700 dark:text-blue-300 text-sm">1. Clash Meta for Android (CMFA)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-semibold">90% 用户的最佳选择</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            内置完整的开源 Mihomo 内核，操作界面清爽，支持一键配置分流策略组。提供强大的“应用分流（Split Tunneling）”开关，可以指定让指定的海外 App（如 X、YouTube、ChatGPT）走代理，其余国产 App 完全不经过代理引擎，极致省电。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-purple-500/30 bg-purple-50/10 dark:bg-purple-950/20">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-purple-700 dark:text-purple-300 text-sm">2. NekoBox for Android</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300 font-semibold">极客全能之选</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            基于 Sing-box 核心开发的极速安卓客户端，单核吞吐性能极强，对弱网环境下的 UDP 抗丢包能力优秀。内存开销极低，在老旧安卓机或千元备用机上也能毫无卡顿地流畅运行。
+          </p>
+        </div>
+      </div>
+
+      <h2 id="section-4" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        四、 解决手机端后台断连、发热耗电与 5G 切换卡顿
+      </h2>
+      <p>
+        移动设备运行代理时，常有用户反馈“手机发热”、“电池掉电飞快”或“走出家门 Wi-Fi 断开后无法自动重连”。资深网络工程师给出以下针对性解决策略：
+      </p>
+
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">1. 电池白名单与后台锁定（Android 端必做）</h3>
+      <p>
+        国内深度定制的安卓系统（如小米 HyperOS、华为 HarmonyOS、vivo OriginOS）后台保活机制极其激进。在系统设置中找到安装的代理 App，将电池管理从“智能省电”改为<strong>“无限制”</strong>，并在多任务后台给 App 加上<strong>“小锁图标”</strong>，防止屏幕熄灭后连接被系统强行清理。
+      </p>
+
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">2. 彻底杜绝发热耗电的根本：拒绝廉价公网与高丢包线路</h3>
+      <p>
+        很多人以为手机发热是客户端代码效率差，<strong>其实罪魁祸首是底层链路的严重丢包！</strong> 当使用劣质公网节点时，晚高峰丢包率高达 20%~40%，客户端必须在手机 CPU 层面疯狂计算并发起大量的 TCP 重传请求，导致基带芯片与处理器持续高负载发热。
+      </p>
+      <p>
+        换用晚高峰 0 丢包的 IEPL 专线后，数据一次性投递成功，手机处理器能够及时进入休眠状态，日常耗电量能直接降低 40% 以上。专线底层架构原理请参阅：<a href={`${baseUrl}/posts/iepl-vs-iplc-guide/`} class="text-blue-600 dark:text-blue-400 font-semibold underline underline-offset-2">《IEPL 与 IPLC 内网专线技术深度科普》</a>。
+      </p>
+
+      <h2 id="section-5" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white pt-6 border-t border-slate-200 dark:border-slate-800">
+        五、 移动端用户高频问答（FAQ）
+      </h2>
+      <div class="space-y-4 my-6 not-prose">
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Q1：在手机上需要经常手动点击测速换节点吗？</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            不需要。优质专线服务商在后台均部署了 BGP 智能路由，通常固定使用延迟最低的 1~2 个香港或日本专线节点即可。频繁切换节点不仅会重置连接握手，还容易导致 Instagram、ChatGPT 等 App 判定登录环境异动。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111625]">
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Q2：Shadowrocket 与 Quantumult X（圈叉）应该怎么选？</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Shadowrocket 易用性极强，支持几乎所有协议与一键扫码，傻瓜化程度高，适合 95% 的普通用户；Quantumult X 具备极其强大的 JavaScript 脚本重写与深度策略分流能力，适合喜欢深度折腾去广告、多重重定向的高阶极客。
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Recommended Posts Grid -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 not-prose">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4">📚 延伸技术专栏与实操进阶</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a href={`${baseUrl}/posts/client-config-guide/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-purple-600 dark:text-purple-400 font-semibold mb-1">桌面端配置</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">Clash Verge Rev 与 Sing-box 客户端精通指南</div>
+          </a>
+          <a href={`${baseUrl}/posts/chatgpt-ai-network-guide/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">AI 生产力特刊</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">ChatGPT 与 Claude 专用网络专线选型指南</div>
+          </a>
+          <a href={`${baseUrl}/posts/2026-beginner-guide/`} class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#111625] hover:border-blue-500 transition-colors block">
+            <div class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">选型避坑必读</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">2026 新手科学选购网络专线避坑指南</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom CTA Card -->
+      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white not-prose flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="font-bold text-base">需要完美适配小火箭与安卓端的稳定专线？</div>
+          <div class="text-xs text-white/80 mt-1">查看 2026 年度一键导入 Shadowsocks / VLESS 的 9 大高速品牌排行。</div>
+        </div>
+        <a
+          href={`${baseUrl}/#benchmark`}
+          class="px-5 py-2.5 rounded-xl bg-white text-blue-600 hover:bg-slate-100 font-bold text-xs transition-colors shrink-0 shadow"
+        >
+          查看 2026 移动专线榜单 →
+        </a>
+      </div>
+    </article>
+  </div>
+</Layout>
